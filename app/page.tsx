@@ -1,69 +1,75 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import { Capabilities } from "@/src/components/home/Capabilities";
+import { CreatorSection } from "@/src/components/home/CreatorSection";
+import { FeaturedProjects, FeaturedProjectsSkeleton } from "@/src/components/home/FeaturedProjects";
+import { ProjectStarter } from "@/src/components/contact/ProjectStarter";
+import { Hero } from "@/src/components/home/Hero";
+import { Manifesto } from "@/src/components/home/Manifesto";
+import { MethodTimeline } from "@/src/components/home/MethodTimeline";
+import { PricingTeaser } from "@/src/components/home/PricingTeaser";
+import { ReviewsSection } from "@/src/components/home/ReviewsSection";
+import { TechMarquee } from "@/src/components/home/TechMarquee";
+import { PixelTransition } from "@/src/components/motion/PixelTransition";
+import { ActionLink } from "@/src/components/ui/ActionLink";
+import { getContent, getPricing } from "@/src/lib/api/content";
+import { getChannels } from "@/src/lib/channels";
+import { estimatesFrom } from "@/src/lib/project-brief";
 
-export default function Home() {
+// « Ton idée, mon prochain build » a besoin du numéro WhatsApp (réglages du site) pour son lien prérempli.
+async function Starter() {
+  const [{ whatsappNumber }, pricing] = await Promise.all([getChannels(), getPricing()]);
+  return <ProjectStarter whatsappNumber={whatsappNumber} estimates={pricing.ok ? estimatesFrom(pricing.data) : null} />;
+}
+
+// La méthode vient du contenu enregistré en base ; sans contenu, la section n'est pas affichée.
+async function Method() {
+  const content = await getContent();
+  if (!content.ok || content.data.method.length === 0) return null;
+  return <MethodTimeline method={content.data.method} />;
+}
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <Hero />
+      <TechMarquee />
+      <Suspense fallback={<FeaturedProjectsSkeleton />}>
+        <FeaturedProjects />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Capabilities />
+      </Suspense>
+      <PixelTransition />
+      <Suspense fallback={null}>
+        <Method />
+      </Suspense>
+      <Manifesto />
+      <Suspense fallback={null}>
+        <CreatorSection />
+      </Suspense>
+      <Suspense fallback={null}>
+        <PricingTeaser />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ReviewsSection />
+      </Suspense>
+      <section aria-labelledby="lab-teaser-title" className="shell pb-24 md:pb-36">
+        <div className="grid gap-8 rounded-(--radius) border hairline p-8 md:grid-cols-12 md:items-center md:p-12">
+          <div className="md:col-span-8">
+            <h2 id="lab-teaser-title" className="text-[clamp(1.6rem,3vw,2.6rem)] font-medium leading-tight tracking-[-0.03em]">
+              Cinq mini-jeux d&apos;une minute : écrase des bugs, vise au pixel, bats la latence.
+            </h2>
+          </div>
+          <div className="md:col-span-4 md:justify-self-end">
+            <ActionLink href="/lab" variant="secondary">
+              Entrer dans la salle
+            </ActionLink>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+      <Suspense fallback={<ProjectStarter whatsappNumber={null} estimates={null} />}>
+        <Starter />
+      </Suspense>
+    </>
   );
 }
