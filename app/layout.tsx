@@ -7,21 +7,28 @@ import { SiteFooter } from "@/src/components/layout/SiteFooter";
 import { SiteHeader } from "@/src/components/layout/SiteHeader";
 import { introScript, SiteIntro } from "@/src/components/layout/SiteIntro";
 import { FeedbackProvider } from "@/src/components/ui/Feedback";
-import { SITE_URL } from "@/src/lib/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/src/lib/site";
 import "./globals.css";
 
 // Archivo variable : l'axe de largeur sert aux titres étendus (wdth 125).
 const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"], display: "swap" });
 
-const description =
-  "Charles, développeur full-stack et fondateur de MBOKO CODE : applications web, mobiles et plateformes sur mesure, de l'idée à la mise en production.";
+const siteTitle = `${SITE_NAME} — Charles, développeur full-stack`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: "MBOKO CODE — Charles, développeur full-stack", template: "%s — MBOKO CODE" },
-  description,
-  openGraph: { siteName: "MBOKO CODE", locale: "fr_FR", type: "website", description },
-  icons: { icon: "/images/logo.jpeg" },
+  title: { default: siteTitle, template: `%s — ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: siteTitle,
+    description: SITE_DESCRIPTION,
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    locale: "fr_FR",
+    type: "website",
+  },
+  // og:image vient de app/opengraph-image.tsx ; X retombe sur og:image faute de twitter:image.
+  twitter: { card: "summary_large_image", title: siteTitle, description: SITE_DESCRIPTION },
 };
 
 export const viewport: Viewport = {

@@ -3,6 +3,10 @@
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+export const SITE_NAME = "MBOKO CODE";
+export const SITE_DESCRIPTION =
+  "Charles, développeur full-stack et fondateur de MBOKO CODE : applications web, mobiles et plateformes sur mesure, de l'idée à la mise en production.";
+
 export const nav = [
   { href: "/projets", label: "Projets" },
   { href: "/services", label: "Services" },
