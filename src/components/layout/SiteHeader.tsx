@@ -79,9 +79,9 @@ export function SiteHeader() {
     <>
       <header
         // En haut de page : fond transparent, texte en « différence » pour rester lisible sur fond clair
-        // comme sombre. Dès qu'on défile : fond nuit flouté, plus lisible au-dessus du contenu.
+        // comme sombre. Dès qu'on défile : fond nuit flouté ; menu ouvert : fond nuit plein, au-dessus des liens.
         className={`fixed inset-x-0 top-0 z-50 border-b text-ivory transition-[transform,background-color,border-color] duration-500 ease-(--ease-expo) ${
-          scrolled ? "border-ivory/10 bg-ink/85 backdrop-blur-xl" : "border-transparent bg-transparent mix-blend-difference"
+          open ? "border-ivory/10 bg-ink" : scrolled ? "border-ivory/10 bg-ink/85 backdrop-blur-xl" : "border-transparent bg-transparent mix-blend-difference"
         } ${
           hidden && !open ? "-translate-y-full" : ""
         }`}
@@ -159,7 +159,7 @@ export function SiteHeader() {
             role="dialog"
             aria-modal="true"
             aria-label="Menu"
-            className="fixed inset-0 z-40 flex flex-col bg-ink px-(--gutter) pb-8 pt-[calc(var(--header-h)+2rem)] text-ivory xl:hidden"
+            className="fixed inset-0 z-45 flex flex-col overflow-y-auto overscroll-contain bg-ink px-(--gutter) pb-8 pt-[calc(var(--header-h)+2rem)] text-ivory xl:hidden"
             initial={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
             animate={reduce ? { opacity: 1 } : { clipPath: "inset(0 0 0% 0)" }}
             exit={reduce ? { opacity: 0 } : { clipPath: "inset(0 0 100% 0)" }}
@@ -167,7 +167,7 @@ export function SiteHeader() {
           >
             <nav aria-label="Navigation mobile" className="flex-1">
               <ul className="space-y-1">
-                {[{ href: "/", label: "Accueil" }, ...nav, { href: "/avis", label: "Avis" }, { href: "/contact", label: "Contact" }].map((item, index) => (
+                {[{ href: "/", label: "Accueil" }, ...nav, { href: "/avis", label: "Avis" }].map((item, index) => (
                   <li key={item.href} className="overflow-hidden">
                     <motion.div
                       initial={reduce ? false : { y: "110%" }}

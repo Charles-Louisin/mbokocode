@@ -9,6 +9,28 @@
         "dev"
       ],
       "port": 3000
+    },
+    {
+      "name": "api-local",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "backend",
+        "run",
+        "dev:local-db"
+      ],
+      "port": 5000
+    },
+    {
+      "name": "start-check",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "next",
+        "start",
+        "-p",
+        "3005"
+      ],
+      "port": 3005
     }
   ]
 }

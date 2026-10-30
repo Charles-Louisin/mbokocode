@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Check, Copy, Globe, LayoutDashboard, Mail, MousePointerClick, RefreshCw, ShoppingBag, Smartphone } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Copy, ExternalLink, Globe, KeyRound, LayoutDashboard, Mail, MousePointerClick, PenLine, RefreshCw, ShoppingBag } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useSearchParams } from "next/navigation";
 import { type ReactNode, useId, useRef, useState } from "react";
@@ -13,36 +13,39 @@ import {
   briefWhatsappLink,
   DEADLINES,
   type DeadlineKey,
-  type Estimates,
   FEATURES,
   type FeatureKey,
   isDeadline,
-  isProjectType,
+  type LicenceOption,
+  type OfferInfos,
+  parseProjectType,
   PROJECT_TYPES,
   type ProjectTypeKey,
 } from "@/src/lib/project-brief";
 import { SITE_URL } from "@/src/lib/site";
 
-// Le brief en quatre étapes (projet, modules, délai, envoi). Les choix faits sur l'accueil arrivent
-// par l'URL (?type=…&delai=…) et le parcours reprend à l'étape suivante. À la fin, le visiteur envoie
-// lui-même le brief par WhatsApp ou par e-mail, déjà rédigé.
+// Le brief en quatre étapes (projet, modules ou solution sous licence, délai, envoi). Les choix faits
+// sur l'accueil ou les tarifs arrivent par l'URL (?type=…&delai=…&licence=…) et le parcours reprend à
+// l'étape suivante. À la fin, le visiteur envoie lui-même le brief par WhatsApp ou par e-mail.
 
 const TYPE_ICONS: Record<ProjectTypeKey, ReactNode> = {
   landing: <MousePointerClick aria-hidden className="size-6" />,
   vitrine: <Globe aria-hidden className="size-6" />,
   ecommerce: <ShoppingBag aria-hidden className="size-6" />,
-  application: <Smartphone aria-hidden className="size-6" />,
-  saas: <LayoutDashboard aria-hidden className="size-6" />,
   refonte: <RefreshCw aria-hidden className="size-6" />,
+  redaction: <PenLine aria-hidden className="size-6" />,
+  surmesure: <LayoutDashboard aria-hidden className="size-6" />,
+  licence: <KeyRound aria-hidden className="size-6" />,
 };
 
-const STEPS = ["Projet", "Modules", "Délai", "Envoi"] as const;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 type Props = {
   whatsappNumber: string | null;
   email: string | null;
-  estimates: Estimates | null;
+  offers: OfferInfos | null;
+  /** Solutions proposées en licence (projets publiés avec une licence disponible). */
+  licences: LicenceOption[];
 };
 
 const card = (selected: boolean) =>
@@ -50,10 +53,11 @@ const card = (selected: boolean) =>
     selected ? "border-cobalt-soft bg-cobalt/15" : "hairline bg-bg-raised/50 hover:border-fg-subtle"
   }`;
 
-export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
+export function ProjectBrief({ whatsappNumber, email, offers, licences }: Props) {
   const params = useSearchParams();
-  const initialType = isProjectType(params.get("type")) ? (params.get("type") as ProjectTypeKey) : undefined;
+  const initialType = parseProjectType(params.get("type"));
   const initialDeadline = isDeadline(params.get("delai")) ? (params.get("delai") as DeadlineKey) : undefined;
+  const initialLicence = licences.find((option) => option.slug === params.get("licence"));
 
   const uid = useId();
   const { toast } = useFeedback();
@@ -63,6 +67,7 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
   const [direction, setDirection] = useState(1);
   const [type, setType] = useState<ProjectTypeKey | undefined>(initialType);
   const [features, setFeatures] = useState<FeatureKey[]>([]);
+  const [licence, setLicence] = useState<LicenceOption | undefined>(initialLicence);
   const [deadline, setDeadline] = useState<DeadlineKey | undefined>(initialDeadline);
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -70,13 +75,17 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
   const [showErrors, setShowErrors] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const brief: Brief = { type, features, deadline, name, company, description };
+  // Licence : la deuxième étape fait choisir la solution à exploiter, au lieu des modules.
+  const isLicence = type === "licence";
+  const steps = ["Projet", isLicence ? "Solution" : "Modules", "Délai", "Envoi"];
+  const brief: Brief = { type, features, licence, deadline, name, company, description };
   const errors = {
     type: !type ? "Choisis le type de projet." : null,
+    licence: isLicence && licences.length > 0 && !licence ? "Choisis la solution que tu veux exploiter." : null,
     name: name.trim().length < 2 ? "Indique ton nom." : null,
     description: description.trim().length < 20 ? "Décris ton besoin en quelques phrases (20 caractères minimum)." : null,
   };
-  const briefReady = !errors.type && !errors.name && !errors.description;
+  const briefReady = !errors.type && !errors.licence && !errors.name && !errors.description;
   const wa = briefReady ? briefWhatsappLink(whatsappNumber, brief, SITE_URL) : null;
   const mail = briefReady ? briefMailto(email, brief, SITE_URL) : null;
 
@@ -95,13 +104,14 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
 
   const next = () => {
     if (step === 0 && errors.type) return setShowErrors(true);
+    if (step === 1 && errors.licence) return setShowErrors(true);
     goTo(step + 1);
   };
 
   // Brief incomplet : on montre ce qui manque et on y emmène, au lieu d'un clic sans effet.
   const blocked = () => {
-    if (errors.type) {
-      goTo(0);
+    if (errors.type || errors.licence) {
+      goTo(errors.type ? 0 : 1);
       requestAnimationFrame(() => setShowErrors(true));
       return;
     }
@@ -122,14 +132,19 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
     }
   };
 
-  const titles = ["Type de solution souhaitée", "Modules & fonctionnalités clés", "Délai souhaité de lancement", "Tes coordonnées & ton brief"];
+  const titles = [
+    "Type de solution souhaitée",
+    isLicence ? "Solution à exploiter sous licence" : "Modules & fonctionnalités clés",
+    "Délai souhaité de lancement",
+    "Tes coordonnées & ton brief",
+  ];
   const fieldClass =
     "w-full border-b hairline bg-transparent py-3 text-lg outline-none transition-colors duration-300 placeholder:text-fg-subtle focus:border-accent aria-invalid:border-danger";
 
   return (
     <div>
       <ol className="mb-10 grid grid-cols-4 gap-2" aria-label="Étapes">
-        {STEPS.map((label, index) => (
+        {steps.map((label, index) => (
           <li key={label} aria-current={index === step ? "step" : undefined}>
             <span className={`block h-1 rounded-full transition-colors duration-500 ${index <= step ? "bg-cobalt" : "bg-line"}`} />
             <span className={`mt-2 block text-xs font-semibold uppercase tracking-wider ${index === step ? "text-fg" : "text-fg-subtle"}`}>
@@ -144,7 +159,7 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
           {titles[step]}
         </h2>
         <span className="label shrink-0 text-fg-subtle">
-          {step + 1}/{STEPS.length}
+          {step + 1}/{steps.length}
         </span>
       </div>
 
@@ -182,7 +197,13 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
                     <span>
                       <span className="block text-lg font-semibold">{PROJECT_TYPES[key].label}</span>
                       <span className="block text-sm text-fg-muted">{PROJECT_TYPES[key].hint}</span>
-                      {estimates && <span className="mt-1 block text-xs font-medium text-accent">Délai indicatif : {estimates[key]}</span>}
+                      {offers && (
+                        <>
+                          <span className="mt-2 block font-semibold">{offers[key].price}</span>
+                          {offers[key].converted && <span className="block text-xs text-fg-subtle">{offers[key].converted}</span>}
+                          <span className="mt-1 block text-xs font-medium text-accent">Délai indicatif : {offers[key].delay}</span>
+                        </>
+                      )}
                     </span>
                   </button>
                 ))}
@@ -195,7 +216,63 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
             </div>
           )}
 
-          {step === 1 && (
+          {step === 1 && isLicence && (
+            <div>
+              {licences.length > 0 ? (
+                <>
+                  <p className="mb-4 text-fg-muted">Ces solutions sont déjà en ligne : je les adapte à ton marché. Laquelle veux-tu exploiter ?</p>
+                  <div
+                    role="radiogroup"
+                    aria-label="Solution sous licence"
+                    aria-describedby={showErrors && errors.licence ? `${uid}-licence` : undefined}
+                    className="grid gap-3 sm:grid-cols-2"
+                  >
+                    {licences.map((option) => (
+                      <div key={option.slug} className="relative">
+                        <button
+                          type="button"
+                          role="radio"
+                          aria-checked={licence?.slug === option.slug}
+                          onClick={() => setLicence(option)}
+                          className={`${card(licence?.slug === option.slug)} pr-14`}
+                        >
+                          <span
+                            className={`flex size-11 shrink-0 items-center justify-center rounded-xl ${licence?.slug === option.slug ? "bg-cobalt text-ivory" : "bg-ink text-cobalt-soft"}`}
+                          >
+                            <KeyRound aria-hidden className="size-6" />
+                          </span>
+                          <span>
+                            <span className="block text-lg font-semibold">{option.title}</span>
+                            {option.kicker && <span className="block text-sm text-fg-muted">{option.kicker}</span>}
+                          </span>
+                        </button>
+                        {option.liveUrl && (
+                          <a
+                            href={option.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute right-3 top-3 flex size-10 items-center justify-center rounded-full text-fg-muted transition-colors hover:text-fg"
+                          >
+                            <ExternalLink aria-hidden className="size-4" />
+                            <span className="sr-only">Voir {option.title} en ligne (nouvel onglet)</span>
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {showErrors && errors.licence && (
+                    <p id={`${uid}-licence`} role="alert" className="mt-4 text-sm text-danger">
+                      {errors.licence}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="text-fg-muted">Aucune solution n&apos;est proposée en licence pour le moment : décris ce que tu cherches à la dernière étape.</p>
+              )}
+            </div>
+          )}
+
+          {step === 1 && !isLicence && (
             <div>
               <p className="mb-4 text-fg-muted">Coche ce qui compte pour toi (facultatif).</p>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -292,7 +369,7 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
                   rows={5}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  placeholder="Présente ton projet, la cible visée, ce qui existe déjà…"
+                  placeholder={type ? PROJECT_TYPES[type].placeholder : "Présente ton projet, la cible visée, ce qui existe déjà…"}
                   aria-invalid={showErrors && !!errors.description}
                   aria-describedby={showErrors && errors.description ? `${uid}-description-error` : undefined}
                   className={`${fieldClass} mt-3 resize-y`}
@@ -324,7 +401,11 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
                 </div>
                 {showErrors && !briefReady && (
                   <p role="alert" className="mt-4 text-sm text-danger">
-                    {errors.type ? "Choisis d'abord le type de projet (étape 1)." : "Complète les champs signalés en rouge pour envoyer ton brief."}
+                    {errors.type
+                      ? "Choisis d'abord le type de projet (étape 1)."
+                      : errors.licence
+                        ? "Choisis la solution sous licence (étape 2)."
+                        : "Complète les champs signalés en rouge pour envoyer ton brief."}
                   </p>
                 )}
                 {briefReady && (
@@ -352,7 +433,7 @@ export function ProjectBrief({ whatsappNumber, email, estimates }: Props) {
             <ArrowLeft aria-hidden className="size-4" />
             Retour
           </button>
-          {step < STEPS.length - 1 && (
+          {step < steps.length - 1 && (
             <button
               type="button"
               onClick={next}

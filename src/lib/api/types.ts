@@ -71,6 +71,15 @@ export type Project = ProjectSummary & {
 
 export type PriceType = "fixed" | "from" | "range" | "quote";
 
+/** Taux de conversion depuis le franc CFA : montant en devise étrangère pour 1 FCFA. */
+export type Rates = {
+  base: "XAF";
+  eur: number;
+  /** null si le taux du jour n'a pas pu être obtenu : on n'affiche alors que l'euro. */
+  usd: number | null;
+  usdDate: string | null;
+};
+
 export type PricingPackage = {
   id: string;
   name: string;
@@ -79,7 +88,7 @@ export type PricingPackage = {
   description: string;
   priceType: PriceType;
   currency: string;
-  /** Unités mineures (centimes). */
+  /** Montant ×100 (centimes), quelle que soit la devise. */
   priceMin?: number;
   priceMax?: number;
   features: string[];

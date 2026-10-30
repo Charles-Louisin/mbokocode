@@ -13,7 +13,7 @@ import { ReviewForm } from "./ReviewForm";
 
 const STATUS: Record<ReviewStatus, { label: string; text: string; icon: typeof Clock }> = {
   pending: { label: "En relecture", text: "Je relis chaque avis avant de le publier. Tu peux encore le modifier.", icon: Clock },
-  approved: { label: "Publié", text: "Ton avis est visible sur le site. Le modifier le renverra en relecture.", icon: Check },
+  approved: { label: "Publié", text: "Ton avis est visible sur le site. Tu peux le modifier ou le supprimer à tout moment.", icon: Check },
   rejected: { label: "Non publié", text: "Cet avis n'a pas été retenu. Tu peux le modifier ou m'écrire pour en parler.", icon: X },
   hidden: { label: "Masqué", text: "Cet avis n'est plus affiché sur le site. Tu peux le modifier ou le supprimer.", icon: EyeOff },
 };

@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { SplitLines } from "@/src/components/motion/SplitLines";
 import { ActionLink } from "@/src/components/ui/ActionLink";
-import { getPricing } from "@/src/lib/api/content";
-import { formatPrice } from "@/src/lib/format";
+import { getPricing, getRates } from "@/src/lib/api/content";
+import { convertedPrice, formatPrice } from "@/src/lib/format";
 
 // Budgets de départ : les montants viennent de l'admin, jamais du code.
 export async function PricingTeaser() {
-  const result = await getPricing();
+  const [result, ratesResult] = await Promise.all([getPricing(), getRates()]);
   if (!result.ok || result.data.length === 0) return null;
+  const rates = ratesResult.ok ? ratesResult.data : null;
   const offers = result.data.filter((offer) => offer.priceType !== "quote").slice(0, 3);
 
   return (
@@ -26,6 +27,7 @@ export async function PricingTeaser() {
         <ul className="lg:col-span-7">
           {offers.map((offer) => {
             const price = formatPrice(offer);
+            const converted = convertedPrice(offer, rates);
             return (
               <li key={offer.id}>
                 <Link
@@ -41,6 +43,7 @@ export async function PricingTeaser() {
                   <span className="text-right">
                     {price.prefix && <span className="label block text-fg-subtle">{price.prefix}</span>}
                     <span className="text-[clamp(1.5rem,2.6vw,2.2rem)] font-medium tracking-[-0.03em] text-accent">{price.amount}</span>
+                    {converted && <span className="mt-1 block text-sm text-fg-subtle">{converted}</span>}
                   </span>
                 </Link>
               </li>

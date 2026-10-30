@@ -1,0 +1,9 @@
+node_modules/
+work/
+out/
+whisper/
+# Captures et voix : régénérées par scripts/capture.mjs et depuis l'enregistrement original.
+public/capture/
+public/audio/
+# Captures brutes fournies pour inspiration (contiennent de vrais soldes) : jamais dans Git.
+public/nouveau/

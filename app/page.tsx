@@ -11,14 +11,14 @@ import { ReviewsSection } from "@/src/components/home/ReviewsSection";
 import { TechMarquee } from "@/src/components/home/TechMarquee";
 import { PixelTransition } from "@/src/components/motion/PixelTransition";
 import { ActionLink } from "@/src/components/ui/ActionLink";
-import { getContent, getPricing } from "@/src/lib/api/content";
+import { getContent, getPricing, getRates } from "@/src/lib/api/content";
 import { getChannels } from "@/src/lib/channels";
-import { estimatesFrom } from "@/src/lib/project-brief";
+import { offerInfosFrom } from "@/src/lib/project-brief";
 
 // « Ton idée, mon prochain build » a besoin du numéro WhatsApp (réglages du site) pour son lien prérempli.
 async function Starter() {
-  const [{ whatsappNumber }, pricing] = await Promise.all([getChannels(), getPricing()]);
-  return <ProjectStarter whatsappNumber={whatsappNumber} estimates={pricing.ok ? estimatesFrom(pricing.data) : null} />;
+  const [{ whatsappNumber }, pricing, rates] = await Promise.all([getChannels(), getPricing(), getRates()]);
+  return <ProjectStarter whatsappNumber={whatsappNumber} offers={pricing.ok ? offerInfosFrom(pricing.data, rates.ok ? rates.data : null) : null} />;
 }
 
 // La méthode vient du contenu enregistré en base ; sans contenu, la section n'est pas affichée.
@@ -67,7 +67,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <Suspense fallback={<ProjectStarter whatsappNumber={null} estimates={null} />}>
+      <Suspense fallback={<ProjectStarter whatsappNumber={null} offers={null} />}>
         <Starter />
       </Suspense>
     </>

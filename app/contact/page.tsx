@@ -3,9 +3,9 @@ import { Suspense } from "react";
 import { ProjectBrief } from "@/src/components/contact/ProjectBrief";
 import { SplitLines } from "@/src/components/motion/SplitLines";
 import { BrandIcon } from "@/src/components/ui/BrandIcon";
-import { getPricing } from "@/src/lib/api/content";
+import { getPricing, getProjects, getRates } from "@/src/lib/api/content";
 import { getChannels } from "@/src/lib/channels";
-import { estimatesFrom, teaserMessage } from "@/src/lib/project-brief";
+import { offerInfosFrom, teaserMessage } from "@/src/lib/project-brief";
 import { whatsappLink } from "@/src/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -15,7 +15,10 @@ export const metadata: Metadata = {
 };
 
 async function Contact() {
-  const [channels, pricing] = await Promise.all([getChannels(), getPricing()]);
+  const [channels, pricing, rates, projects] = await Promise.all([getChannels(), getPricing(), getRates(), getProjects()]);
+  const licences = projects.ok
+    ? projects.data.filter((project) => project.licenseAvailable).map(({ slug, title, kicker, liveUrl }) => ({ slug, title, kicker, liveUrl }))
+    : [];
   const wa = whatsappLink(channels.whatsappNumber, teaserMessage());
 
   return (
@@ -54,7 +57,12 @@ async function Contact() {
       <div className="lg:col-span-8">
         {/* useSearchParams (choix venus de l'accueil) se lit à la requête. */}
         <Suspense fallback={<div className="h-96 animate-pulse rounded-(--radius) bg-bg-raised" />}>
-          <ProjectBrief whatsappNumber={channels.whatsappNumber} email={channels.email} estimates={pricing.ok ? estimatesFrom(pricing.data) : null} />
+          <ProjectBrief
+            whatsappNumber={channels.whatsappNumber}
+            email={channels.email}
+            offers={pricing.ok ? offerInfosFrom(pricing.data, rates.ok ? rates.data : null) : null}
+            licences={licences}
+          />
         </Suspense>
       </div>
     </>

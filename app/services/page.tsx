@@ -7,8 +7,9 @@ import { SplitLines } from "@/src/components/motion/SplitLines";
 import { StickyStackItem } from "@/src/components/motion/StickyStackItem";
 import { ActionLink } from "@/src/components/ui/ActionLink";
 import { Unavailable } from "@/src/components/ui/Unavailable";
-import { getContent, getProjects, getServices } from "@/src/lib/api/content";
-import { pad2 } from "@/src/lib/format";
+import { getContent, getPricing, getProjects, getRates, getServices } from "@/src/lib/api/content";
+import type { PricingPackage, Rates } from "@/src/lib/api/types";
+import { convertedPrice, formatPrice, pad2 } from "@/src/lib/format";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -33,9 +34,27 @@ async function ProofLinks({ slugs }: { slugs: string[] }) {
   );
 }
 
+// Offres (slugs MongoDB) qui chiffrent chaque savoir-faire : on affiche la moins chère.
+const SERVICE_OFFERS: Record<string, string[]> = {
+  sites: ["landing-page", "site-vitrine", "e-commerce"],
+  evolution: ["refonte"],
+  plateformes: ["sur-mesure"],
+  applications: ["sur-mesure"],
+};
+
+function startingPrice(serviceSlug: string, offers: PricingPackage[], rates: Rates | null) {
+  const candidates = offers.filter((offer) => SERVICE_OFFERS[serviceSlug]?.includes(offer.slug));
+  if (candidates.length === 0) return null;
+  const priced = candidates.filter((offer) => offer.priceType !== "quote" && offer.priceMin != null);
+  if (priced.length === 0) return { label: "Sur devis", converted: null };
+  const cheapest = priced.reduce((a, b) => ((b.priceMin ?? 0) < (a.priceMin ?? 0) ? b : a));
+  const price = formatPrice({ ...cheapest, priceType: "from" });
+  return { label: `${price.prefix} ${price.amount}`, converted: convertedPrice({ ...cheapest, priceType: "from" }, rates) };
+}
+
 // Savoir-faire, méthode et engagements : tout vient de la base.
 async function ServicesBody() {
-  const [servicesResult, contentResult] = await Promise.all([getServices(), getContent()]);
+  const [servicesResult, contentResult, pricingResult, ratesResult] = await Promise.all([getServices(), getContent(), getPricing(), getRates()]);
   if (!servicesResult.ok || !contentResult.ok) {
     return (
       <div className="shell mt-20 md:mt-32">
@@ -45,39 +64,50 @@ async function ServicesBody() {
   }
   const services = servicesResult.data;
   const content = contentResult.data;
+  const offers = pricingResult.ok ? pricingResult.data : [];
+  const rates = ratesResult.ok ? ratesResult.data : null;
   return (
     <>
         <section aria-label="Savoir-faire" className="shell mt-20 md:mt-32">
           <ol>
-            {services.map((capability, index) => (
-              <StickyStackItem key={capability.slug} index={index}>
-                <article
-                  className={`relative overflow-hidden rounded-(--radius) border hairline p-8 shadow-[0_-20px_60px_rgb(0_0_0/0.35)] md:p-14 ${
-                    index % 2 === 1 ? "surface-ivory" : "bg-ink-2"
-                  }`}
-                >
-                  <LogoMark className="pointer-events-none absolute -right-10 -top-6 w-72 opacity-[0.05]" />
-                  <div className="grid gap-10 md:grid-cols-12">
-                    <div className="md:col-span-5">
-                      <h2 className="text-title font-semibold">{capability.name}</h2>
+            {services.map((capability, index) => {
+              const price = startingPrice(capability.slug, offers, rates);
+              return (
+                <StickyStackItem key={capability.slug} index={index}>
+                  <article
+                    className={`relative overflow-hidden rounded-(--radius) border hairline p-8 shadow-[0_-20px_60px_rgb(0_0_0/0.35)] md:p-14 ${
+                      index % 2 === 1 ? "surface-ivory" : "bg-ink-2"
+                    }`}
+                  >
+                    <LogoMark className="pointer-events-none absolute -right-10 -top-6 w-72 opacity-[0.05]" />
+                    <div className="grid gap-10 md:grid-cols-12">
+                      <div className="md:col-span-5">
+                        <h2 className="text-title font-semibold">{capability.name}</h2>
+                        {price && (
+                          <Link href="/tarifs" className="mt-6 inline-block">
+                            <span className="block text-xl font-semibold text-accent">{price.label}</span>
+                            {price.converted && <span className="block text-sm text-fg-subtle">{price.converted}</span>}
+                          </Link>
+                        )}
+                      </div>
+                      <div className="md:col-span-6 md:col-start-7">
+                        <p className="text-lead">{capability.summary}</p>
+                        <ul className="mt-8 border-t hairline">
+                          {capability.deliverables.map((point) => (
+                            <li key={point} className="border-b hairline py-4 text-fg-muted">
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                        <Suspense fallback={null}>
+                          <ProofLinks slugs={capability.proofs} />
+                        </Suspense>
+                      </div>
                     </div>
-                    <div className="md:col-span-6 md:col-start-7">
-                      <p className="text-lead">{capability.summary}</p>
-                      <ul className="mt-8 border-t hairline">
-                        {capability.deliverables.map((point) => (
-                          <li key={point} className="border-b hairline py-4 text-fg-muted">
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                      <Suspense fallback={null}>
-                        <ProofLinks slugs={capability.proofs} />
-                      </Suspense>
-                    </div>
-                  </div>
-                </article>
-              </StickyStackItem>
-            ))}
+                  </article>
+                </StickyStackItem>
+              );
+            })}
           </ol>
         </section>
 

@@ -15,7 +15,7 @@ const PRICE_TYPES: { value: PriceType; label: string }[] = [
   { value: "quote", label: "Sur devis" },
 ];
 
-// Les montants sont stockés en centimes ; on les saisit en unités (ex. 500 pour 500 €).
+// Les montants sont stockés ×100 ; on les saisit en unités (ex. 100000 pour 100 000 FCFA).
 const toUnits = (minor?: number | null) => (minor == null ? "" : String(minor / 100));
 const toMinor = (units: string) => (units.trim() === "" ? null : Math.round(Number(units.replace(",", ".")) * 100));
 

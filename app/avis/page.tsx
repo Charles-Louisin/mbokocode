@@ -9,14 +9,14 @@ import { getReviews } from "@/src/lib/api/content";
 
 export const metadata: Metadata = {
   title: "Avis",
-  description: "Les avis publiés par les personnes qui ont travaillé avec MBOKO CODE, relus avant publication.",
+  description: "Les avis publiés par les personnes qui ont travaillé avec MBOKO CODE.",
   alternates: { canonical: "/avis" },
 };
 
 const process = [
   { title: "Tu te connectes", text: "Avec Google ou un lien reçu par e-mail. Pas de mot de passe à retenir." },
   { title: "Tu écris ton avis", text: "Une note, quelques phrases, le nom que tu veux afficher. Un avis par compte, modifiable." },
-  { title: "Je le relis", text: "Rien n'est publié sans relecture. Le badge « Client vérifié » n'apparaît que si j'ai confirmé notre collaboration." },
+  { title: "Il est publié", text: "Ton avis apparaît tout de suite sur le site. Le badge « Client vérifié » n'apparaît que si j'ai confirmé notre collaboration." },
 ];
 
 async function ReviewList() {
@@ -45,7 +45,7 @@ async function ReviewList() {
   );
 }
 
-// Avis — d'abord les avis publiés, puis comment en laisser un : la modération est dite, pas cachée.
+// Avis — d'abord les avis publiés, puis comment en laisser un.
 export default function ReviewsPage() {
   return (
     <div className="shell pb-24 pt-[calc(var(--header-h)+3rem)] md:pb-36">

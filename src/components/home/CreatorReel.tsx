@@ -10,6 +10,8 @@ const SPEED = 0.35; // px par image (≈ 20 px/s) : un défilement de vitrine, p
 
 // Les vidéos qui ont percé, en pellicule : la rangée défile seule et lentement, s'arrête au survol,
 // au focus ou au toucher, et se fait glisser au doigt. Sans animation demandée, elle reste immobile.
+// Au doigt, le défilement automatique ne reprend qu'une fois l'élan du glissement terminé : sinon il
+// écrit `scrollLeft` pendant l'inertie et la rangée saccade ou repart en arrière.
 export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; handle: string }) {
   const track = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -17,8 +19,11 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
   useEffect(() => {
     const element = track.current;
     if (!element || reduce) return;
+    const TOUCH_RESUME_MS = 1800;
     let frame = 0;
     let paused = false;
+    let touching = false;
+    let afterTouch = false; // pause due au doigt : la reprise attend la fin de l'élan
     let resumeTimer: number | undefined;
     let position = element.scrollLeft;
 
@@ -29,8 +34,6 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
         position += SPEED;
         if (position >= half) position -= half;
         element.scrollLeft = position;
-      } else {
-        position = element.scrollLeft;
       }
       frame = requestAnimationFrame(tick);
     };
@@ -42,29 +45,55 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
     const resumeSoon = (delay = 0) => {
       window.clearTimeout(resumeTimer);
       resumeTimer = window.setTimeout(() => {
+        // On repart de là où le visiteur a laissé la rangée.
+        position = element.scrollLeft;
+        afterTouch = false;
         paused = false;
       }, delay);
     };
-    const onPointerLeave = () => resumeSoon(0);
-    const onTouchEnd = () => resumeSoon(1800);
+    // Survol : seulement à la souris. Au doigt, le navigateur envoie aussi pointerenter/leave, et le
+    // « leave » qui suit le lever du doigt relançait le défilement en pleine inertie.
+    const onPointerEnter = (event: PointerEvent) => {
+      if (event.pointerType === "mouse") pause();
+    };
+    const onPointerLeave = (event: PointerEvent) => {
+      if (event.pointerType === "mouse") resumeSoon(0);
+    };
+    const onTouchStart = () => {
+      touching = true;
+      afterTouch = true;
+      pause();
+    };
+    const onTouchEnd = () => {
+      touching = false;
+      resumeSoon(TOUCH_RESUME_MS);
+    };
+    // Tant que la rangée bouge encore (élan après le glissement), on repousse la reprise.
+    const onScroll = () => {
+      if (afterTouch && !touching) resumeSoon(TOUCH_RESUME_MS);
+    };
     const onFocusOut = (event: FocusEvent) => {
       if (!element.contains(event.relatedTarget as Node)) resumeSoon(0);
     };
 
-    element.addEventListener("pointerenter", pause);
+    element.addEventListener("pointerenter", onPointerEnter);
     element.addEventListener("pointerleave", onPointerLeave);
-    element.addEventListener("touchstart", pause, { passive: true });
+    element.addEventListener("touchstart", onTouchStart, { passive: true });
     element.addEventListener("touchend", onTouchEnd);
+    element.addEventListener("touchcancel", onTouchEnd);
+    element.addEventListener("scroll", onScroll, { passive: true });
     element.addEventListener("focusin", pause);
     element.addEventListener("focusout", onFocusOut);
     frame = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(resumeTimer);
-      element.removeEventListener("pointerenter", pause);
+      element.removeEventListener("pointerenter", onPointerEnter);
       element.removeEventListener("pointerleave", onPointerLeave);
-      element.removeEventListener("touchstart", pause);
+      element.removeEventListener("touchstart", onTouchStart);
       element.removeEventListener("touchend", onTouchEnd);
+      element.removeEventListener("touchcancel", onTouchEnd);
+      element.removeEventListener("scroll", onScroll);
       element.removeEventListener("focusin", pause);
       element.removeEventListener("focusout", onFocusOut);
     };
@@ -78,7 +107,7 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
       ref={track}
       role="region"
       aria-label={`Vidéos de @${handle} sur TikTok`}
-      className="flex gap-5 overflow-x-auto py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className="flex gap-5 overflow-x-auto overscroll-x-contain py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {loop.map((copy) => (
         <ul key={String(copy)} aria-hidden={copy || undefined} className="flex shrink-0 gap-5 pl-5 first:pl-(--gutter)">

@@ -17,6 +17,8 @@ const eslintConfig = defineConfig([
     // Copies brutes de Magic UI ajoutées pour référence, non importées : les versions adaptées
     // et utilisées sont dans src/components/magic.
     "src/components/magicui/**",
+    // Vidéo de présentation (Remotion) : projet séparé avec ses propres dépendances.
+    "video/**",
   ]),
 ]);
 

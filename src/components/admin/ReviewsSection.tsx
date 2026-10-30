@@ -113,9 +113,9 @@ function ReviewItem({ review, onChanged }: { review: AdminReview; onChanged: () 
   );
 }
 
-// Modération : relire, publier, masquer, rejeter ; badge « Client vérifié » avec justification.
+// Avis publiés directement : on peut les masquer, les rejeter ou les republier ; badge « Client vérifié » avec justification.
 export function ReviewsSection() {
-  const [filter, setFilter] = useState<ReviewStatus | "all">("pending");
+  const [filter, setFilter] = useState<ReviewStatus | "all">("all");
   const { data, error, reload } = useAdminData<AdminReview[]>(`/reviews${filter === "all" ? "" : `?status=${filter}`}`);
 
   return (

@@ -1,31 +1,63 @@
+import type { PricingPackage, Rates } from "./api/types";
+import { convertedPrice, formatPrice } from "./format";
 import { whatsappLink } from "./whatsapp";
 
 // Parcours du brief : le visiteur décrit son projet en quelques choix, puis l'envoie lui-même
 // par WhatsApp ou par e-mail, avec un message prérempli.
 // Rien n'est enregistré par le site : le message part depuis la messagerie du visiteur.
 
-export type ProjectTypeKey = "landing" | "vitrine" | "ecommerce" | "application" | "saas" | "refonte";
+export type ProjectTypeKey = "landing" | "vitrine" | "ecommerce" | "refonte" | "redaction" | "surmesure" | "licence";
 export type DeadlineKey = "urgent" | "1m" | "2-3m" | "flexible";
 export type FeatureKey = keyof typeof FEATURES;
 
-/** Types de projet du brief. `offer` : l'offre publiée (MongoDB) dont le délai indicatif est repris. */
-export const PROJECT_TYPES: Record<ProjectTypeKey, { label: string; hint: string; offer: string }> = {
-  landing: { label: "Landing page", hint: "Une page pour convertir", offer: "landing-page" },
-  vitrine: { label: "Site vitrine", hint: "Présenter ton activité", offer: "site-vitrine" },
-  ecommerce: { label: "E-commerce", hint: "Vendre en ligne", offer: "e-commerce" },
-  application: { label: "Application", hint: "Web ou mobile, sur mesure", offer: "sur-mesure" },
-  saas: { label: "Plateforme / SaaS", hint: "Outil métier, multi-utilisateurs", offer: "sur-mesure" },
-  refonte: { label: "Refonte", hint: "Moderniser l'existant", offer: "refonte" },
+/**
+ * Types de projet du brief, un par offre publiée (MongoDB) : `offer` est le slug de l'offre dont
+ * le prix et le délai indicatif s'affichent. `placeholder` guide la description selon le type.
+ */
+export const PROJECT_TYPES: Record<ProjectTypeKey, { label: string; hint: string; offer: string; placeholder: string }> = {
+  landing: { label: "Landing page", hint: "Une page pour convertir", offer: "landing-page", placeholder: "Ce que tu vends, à qui, et l'action que le visiteur doit faire (appeler, réserver, commander…)." },
+  vitrine: { label: "Site vitrine", hint: "Présenter ton activité", offer: "site-vitrine", placeholder: "Ton activité, ta clientèle, les pages dont tu as besoin, ce qui existe déjà (logo, textes, photos)…" },
+  ecommerce: { label: "E-commerce", hint: "Vendre en ligne", offer: "e-commerce", placeholder: "Ce que tu vends, combien de produits, comment tes clients paient et sont livrés…" },
+  refonte: { label: "Refonte", hint: "Moderniser l'existant", offer: "refonte", placeholder: "L'adresse de ton site actuel, ce qui ne va pas, ce que tu veux qu'il fasse mieux…" },
+  redaction: { label: "Rédaction web", hint: "Des textes qui donnent envie", offer: "redaction-web", placeholder: "Le site ou les pages concernées, ton activité, le ton que tu veux donner…" },
+  surmesure: {
+    label: "Développement sur mesure",
+    hint: "Application, plateforme, SaaS",
+    offer: "sur-mesure",
+    placeholder: "Ton application ou ta plateforme : qui l'utilise, les rôles (clients, vendeurs, admin…), les fonctionnalités clés, les outils à connecter, web ou mobile…",
+  },
+  licence: { label: "Licence logicielle", hint: "Exploiter une solution existante", offer: "licences", placeholder: "Ton marché (pays, ville), ton activité, ce que tu veux adapter (nom, couleurs, moyens de paiement, langues)…" },
 };
 
-/** Délai indicatif par type de projet, lu dans les offres ; « sur devis » quand l'offre n'en donne pas. */
-export type Estimates = Record<ProjectTypeKey, string>;
+/** Anciens liens (?type=application ou ?type=saas) : même parcours que le sur mesure. */
+const ALIASES: Record<string, ProjectTypeKey> = { application: "surmesure", saas: "surmesure" };
 
-export function estimatesFrom(offers: { slug: string; deliveryEstimate?: string }[]): Estimates {
-  const bySlug = new Map(offers.map((offer) => [offer.slug, offer.deliveryEstimate]));
+/** Type de projet correspondant à une offre des tarifs (pour présélectionner le brief). */
+export function typeForOffer(offerSlug: string): ProjectTypeKey | undefined {
+  return (Object.keys(PROJECT_TYPES) as ProjectTypeKey[]).find((key) => PROJECT_TYPES[key].offer === offerSlug);
+}
+
+/** Prix et délai indicatif de chaque type, lus dans les offres publiées. */
+export type OfferInfo = { price: string; converted: string | null; delay: string };
+export type OfferInfos = Record<ProjectTypeKey, OfferInfo>;
+
+export function offerInfosFrom(offers: PricingPackage[], rates: Rates | null): OfferInfos {
+  const bySlug = new Map(offers.map((offer) => [offer.slug, offer]));
   return Object.fromEntries(
-    (Object.keys(PROJECT_TYPES) as ProjectTypeKey[]).map((key) => [key, bySlug.get(PROJECT_TYPES[key].offer) || "sur devis, selon le périmètre"]),
-  ) as Estimates;
+    (Object.keys(PROJECT_TYPES) as ProjectTypeKey[]).map((key) => {
+      const offer = bySlug.get(PROJECT_TYPES[key].offer);
+      if (!offer) return [key, { price: "Sur devis", converted: null, delay: "sur devis, selon le périmètre" }];
+      const price = formatPrice(offer);
+      return [
+        key,
+        {
+          price: price.prefix ? `${price.prefix} ${price.amount}` : price.amount,
+          converted: convertedPrice(offer, rates),
+          delay: offer.deliveryEstimate || "sur devis, selon le périmètre",
+        },
+      ];
+    }),
+  ) as OfferInfos;
 }
 
 export const FEATURES = {
@@ -50,9 +82,20 @@ export const DEADLINES: Record<DeadlineKey, { label: string; hint: string }> = {
 export const isProjectType = (value: string | null): value is ProjectTypeKey => !!value && Object.hasOwn(PROJECT_TYPES, value);
 export const isDeadline = (value: string | null): value is DeadlineKey => !!value && Object.hasOwn(DEADLINES, value);
 
+/** Type de projet lu dans l'URL, anciens noms compris. */
+export function parseProjectType(value: string | null): ProjectTypeKey | undefined {
+  if (isProjectType(value)) return value;
+  return value && Object.hasOwn(ALIASES, value) ? ALIASES[value] : undefined;
+}
+
+/** Solution proposée en licence (projet publié avec `licenseAvailable`). */
+export type LicenceOption = { slug: string; title: string; kicker?: string; liveUrl?: string };
+
 export type Brief = {
   type?: ProjectTypeKey;
   features: FeatureKey[];
+  /** Pour une licence : la solution choisie. */
+  licence?: LicenceOption;
   deadline?: DeadlineKey;
   name: string;
   company?: string;
@@ -69,11 +112,13 @@ export function teaserMessage(type?: ProjectTypeKey, deadline?: DeadlineKey): st
 /** Brief complet en texte brut, identique pour WhatsApp et l'e-mail. */
 export function briefText(brief: Brief, siteUrl?: string): string {
   const firstName = brief.name.trim().split(/\s+/)[0] || brief.name.trim();
+  const licence = brief.type === "licence" ? brief.licence : undefined;
   const lines = [
     `Bonjour Charles, c'est ${firstName}${brief.company?.trim() ? ` (${brief.company.trim()})` : ""}.`,
     "",
     brief.type && `Projet : ${PROJECT_TYPES[brief.type].label}`,
-    brief.features.length > 0 && `Modules : ${brief.features.map((f) => FEATURES[f]).join(", ")}`,
+    licence && `Solution souhaitée en licence : ${licence.title}${licence.kicker ? ` (${licence.kicker})` : ""}${licence.liveUrl ? ` — ${licence.liveUrl}` : ""}`,
+    brief.type !== "licence" && brief.features.length > 0 && `Modules : ${brief.features.map((f) => FEATURES[f]).join(", ")}`,
     brief.deadline && `Délai souhaité : ${DEADLINES[brief.deadline].label} (${DEADLINES[brief.deadline].hint.toLowerCase()})`,
     "",
     brief.description.trim(),
@@ -83,9 +128,10 @@ export function briefText(brief: Brief, siteUrl?: string): string {
   return lines.filter((line) => line !== false && line !== undefined).join("\n").replace(/\n{3,}/g, "\n\n").trim();
 }
 
-export function briefSubject(brief: Pick<Brief, "type" | "name">): string {
+export function briefSubject(brief: Pick<Brief, "type" | "name" | "licence">): string {
   const project = brief.type ? PROJECT_TYPES[brief.type].label : "Nouveau projet";
-  return `${project} — ${brief.name.trim() || "demande"} (via le portfolio)`;
+  const detail = brief.type === "licence" && brief.licence ? ` ${brief.licence.title}` : "";
+  return `${project}${detail} — ${brief.name.trim() || "demande"} (via le portfolio)`;
 }
 
 export function briefWhatsappLink(number: string | null | undefined, brief: Brief, siteUrl?: string): string | null {
@@ -99,7 +145,7 @@ export function briefMailto(email: string | null | undefined, brief: Brief, site
   return `mailto:${email}?subject=${encodeURIComponent(briefSubject(brief))}&body=${encodeURIComponent(body)}`;
 }
 
-/** Lien vers le parcours complet, avec les choix déjà faits sur l'accueil. */
+/** Lien vers le parcours complet, avec les choix déjà faits (accueil, tarifs). */
 export function contactHref(type?: ProjectTypeKey, deadline?: DeadlineKey): string {
   const params = new URLSearchParams();
   if (type) params.set("type", type);

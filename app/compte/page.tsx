@@ -4,7 +4,7 @@ import { SplitLines } from "@/src/components/motion/SplitLines";
 
 export const metadata: Metadata = {
   title: "Mon espace",
-  description: "Ton espace MBOKO CODE : ton avis et son état de relecture.",
+  description: "Ton espace MBOKO CODE : ton avis et sa publication.",
   robots: { index: false, follow: false },
 };
 

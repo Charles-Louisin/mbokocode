@@ -5,14 +5,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import { BrandIcon } from "@/src/components/ui/BrandIcon";
-import { contactHref, DEADLINES, type DeadlineKey, type Estimates, PROJECT_TYPES, type ProjectTypeKey, teaserMessage } from "@/src/lib/project-brief";
+import { contactHref, DEADLINES, type DeadlineKey, type OfferInfos, PROJECT_TYPES, type ProjectTypeKey, teaserMessage } from "@/src/lib/project-brief";
 import { whatsappLink } from "@/src/lib/whatsapp";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-// « Ton idée, mon prochain build » : deux choix (le type de projet, puis l'échéance), une estimation qui s'affiche
-// aussitôt, et deux sorties : le parcours complet, ou WhatsApp avec les choix déjà écrits.
-export function ProjectStarter({ whatsappNumber, estimates }: { whatsappNumber: string | null; estimates: Estimates | null }) {
+// « Ton idée, mon prochain build » : deux choix (le type de projet, avec son prix, puis l'échéance), une
+// estimation qui s'affiche aussitôt, et deux sorties : le parcours complet, ou WhatsApp avec les choix déjà écrits.
+export function ProjectStarter({ whatsappNumber, offers }: { whatsappNumber: string | null; offers: OfferInfos | null }) {
   const reduce = useReducedMotion();
   const [type, setType] = useState<ProjectTypeKey>();
   const [deadline, setDeadline] = useState<DeadlineKey>();
@@ -34,8 +34,9 @@ export function ProjectStarter({ whatsappNumber, estimates }: { whatsappNumber: 
 
         <div role="group" aria-label="Type de projet" className="mt-12 flex flex-wrap gap-3">
           {(Object.keys(PROJECT_TYPES) as ProjectTypeKey[]).map((key) => (
-            <button key={key} type="button" aria-pressed={type === key} onClick={() => setType(type === key ? undefined : key)} className={chip(type === key)}>
-              {PROJECT_TYPES[key].label}
+            <button key={key} type="button" aria-pressed={type === key} onClick={() => setType(type === key ? undefined : key)} className={`${chip(type === key)} text-left`}>
+              <span className="block">{PROJECT_TYPES[key].label}</span>
+              {offers && <span className={`block text-xs font-medium ${type === key ? "text-cobalt" : "text-ivory/75"}`}>{offers[key].price}</span>}
             </button>
           ))}
         </div>
@@ -43,7 +44,7 @@ export function ProjectStarter({ whatsappNumber, estimates }: { whatsappNumber: 
         <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-ivory">Livraison souhaitée</p>
           <AnimatePresence>
-            {type && estimates && (
+            {type && offers && (
               <motion.span
                 key={type}
                 initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.9 }}
@@ -52,7 +53,7 @@ export function ProjectStarter({ whatsappNumber, estimates }: { whatsappNumber: 
                 transition={{ duration: 0.4, ease: EASE }}
                 className="rounded-full bg-ink/25 px-3 py-1 text-sm font-semibold"
               >
-                {estimates[type]}
+                {offers[type].delay}
               </motion.span>
             )}
           </AnimatePresence>
@@ -88,7 +89,11 @@ export function ProjectStarter({ whatsappNumber, estimates }: { whatsappNumber: 
           )}
         </div>
         <p aria-live="polite" className="mt-6 min-h-6 text-ivory">
-          {type && estimates ? `Délai indicatif : ${estimates[type]}.` : estimates ? "Choisis un type de projet pour voir le délai indicatif." : null}
+          {type && offers
+            ? `${offers[type].price}${offers[type].converted ? ` (${offers[type].converted})` : ""} · délai indicatif : ${offers[type].delay}.`
+            : offers
+              ? "Choisis un type de projet pour voir son prix et son délai indicatif."
+              : null}
         </p>
       </div>
     </section>

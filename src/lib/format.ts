@@ -1,4 +1,4 @@
-import type { PricingPackage, ProjectCategory, ProjectStatus } from "./api/types";
+import type { PricingPackage, ProjectCategory, ProjectStatus, Rates } from "./api/types";
 
 export const categoryLabels: Record<ProjectCategory, string> = {
   web: "Web",
@@ -21,6 +21,23 @@ export function formatAmount(minorUnits: number, currency: string): string {
     currency,
     maximumFractionDigits: minorUnits % 100 === 0 ? 0 : 2,
   }).format(minorUnits / 100);
+}
+
+const approx = (value: number, currency: "EUR" | "USD") =>
+  new Intl.NumberFormat("fr-FR", { style: "currency", currency, currencyDisplay: "narrowSymbol", maximumFractionDigits: 0 }).format(value);
+
+/** Équivalent discret d'un prix en FCFA : « ≈ 503 € · 553 $ ». Rien pour une autre devise ou sur devis. */
+export function convertedPrice(
+  offer: Pick<PricingPackage, "priceType" | "priceMin" | "priceMax" | "currency">,
+  rates: Rates | null,
+): string | null {
+  const { priceType, priceMin, priceMax, currency } = offer;
+  if (!rates || currency !== "XAF" || priceType === "quote" || priceMin == null) return null;
+  const convert = (rate: number, code: "EUR" | "USD") => {
+    const min = approx((priceMin / 100) * rate, code);
+    return priceType === "range" && priceMax != null ? `${min} – ${approx((priceMax / 100) * rate, code)}` : min;
+  };
+  return ["≈ " + convert(rates.eur, "EUR"), rates.usd != null ? convert(rates.usd, "USD") : null].filter(Boolean).join(" · ");
 }
 
 /** Libellé de prix lisible ; null si l'offre n'affiche pas de montant. */

@@ -7,9 +7,10 @@ import { SpotlightCard } from "@/src/components/magic/SpotlightCard";
 import { SplitLines } from "@/src/components/motion/SplitLines";
 import { ActionLink } from "@/src/components/ui/ActionLink";
 import { Unavailable } from "@/src/components/ui/Unavailable";
-import { getContent, getPricing } from "@/src/lib/api/content";
-import type { PricingPackage } from "@/src/lib/api/types";
-import { formatPrice } from "@/src/lib/format";
+import { getContent, getPricing, getRates } from "@/src/lib/api/content";
+import type { PricingPackage, Rates } from "@/src/lib/api/types";
+import { convertedPrice, formatPrice } from "@/src/lib/format";
+import { contactHref, typeForOffer } from "@/src/lib/project-brief";
 
 export const metadata: Metadata = {
   title: "Tarifs",
@@ -63,8 +64,9 @@ async function AfterDelivery() {
   );
 }
 
-function OfferBody({ offer }: { offer: PricingPackage }) {
+function OfferBody({ offer, rates }: { offer: PricingPackage; rates: Rates | null }) {
   const price = formatPrice(offer);
+  const converted = convertedPrice(offer, rates);
   const quote = offer.priceType === "quote";
   const subtle = quote ? "text-ivory/55" : "text-fg-subtle";
   return (
@@ -76,6 +78,7 @@ function OfferBody({ offer }: { offer: PricingPackage }) {
       <p className="mt-8">
         {price.prefix && <span className={`label block ${subtle}`}>{price.prefix}</span>}
         <span className="text-[clamp(2.4rem,4vw,3.4rem)] font-semibold leading-none [font-stretch:125%]">{price.amount}</span>
+        {converted && <span className={`mt-2 block text-sm ${subtle}`}>{converted}</span>}
       </p>
 
       {offer.features.length > 0 && (
@@ -92,7 +95,7 @@ function OfferBody({ offer }: { offer: PricingPackage }) {
       )}
       {offer.deliveryEstimate && <p className={`label mt-6 ${subtle}`}>Délai indicatif : {offer.deliveryEstimate}</p>}
       <Link
-        href="/contact"
+        href={contactHref(typeForOffer(offer.slug))}
         className={`mt-8 inline-flex items-center justify-center rounded-full px-6 py-3.5 font-medium transition-colors duration-300 ${
           quote ? "bg-ivory text-ink hover:bg-cobalt hover:text-ivory" : "bg-ink text-ivory hover:bg-cobalt"
         }`}
@@ -104,8 +107,9 @@ function OfferBody({ offer }: { offer: PricingPackage }) {
 }
 
 async function Offers() {
-  const result = await getPricing();
+  const [result, ratesResult] = await Promise.all([getPricing(), getRates()]);
   if (!result.ok) return <Unavailable what="Les offres" />;
+  const rates = ratesResult.ok ? ratesResult.data : null;
 
   const priced = result.data.filter((offer) => offer.priceType !== "quote");
   const quoted = result.data.filter((offer) => offer.priceType === "quote");
@@ -119,7 +123,7 @@ async function Offers() {
             {/* Offres chiffrées : la bordure s'éclaire sous le pointeur (Magic Card, Magic UI). */}
             <SpotlightCard className="h-full">
               <article className="flex h-full flex-col p-8">
-                <OfferBody offer={offer} />
+                <OfferBody offer={offer} rates={rates} />
               </article>
             </SpotlightCard>
           </li>
@@ -131,7 +135,7 @@ async function Offers() {
             {/* Offres sur devis : surface sombre et éclat qui parcourt la bordure (Border Beam, Magic UI). */}
             <article className="relative flex h-full flex-col rounded-(--radius) bg-ink p-8 text-ivory">
               <BorderBeam />
-              <OfferBody offer={offer} />
+              <OfferBody offer={offer} rates={rates} />
             </article>
           </li>
         ))}

@@ -1,6 +1,6 @@
 import { cacheLife, cacheTag } from "next/cache";
 import { apiFetch } from "./client";
-import type { ApiItem, PricingPackage, Project, ProjectSummary, ReviewList, Service, SiteContent, SiteSettings } from "./types";
+import type { ApiItem, PricingPackage, Project, ProjectSummary, Rates, ReviewList, Service, SiteContent, SiteSettings } from "./types";
 
 // Lectures publiques mises en cache. Un succès reste en cache une heure ; un échec
 // (API arrêtée, base indisponible) n'est gardé que quelques secondes pour réessayer vite.
@@ -33,6 +33,12 @@ export async function getProject(slug: string): Promise<Result<Project>> {
 export async function getPricing(): Promise<Result<PricingPackage[]>> {
   "use cache";
   return read<PricingPackage[]>("/pricing", "pricing");
+}
+
+/** Taux de conversion FCFA → € et $ (l'API garde le taux du dollar 12 h). */
+export async function getRates(): Promise<Result<Rates>> {
+  "use cache";
+  return read<Rates>("/rates", "rates");
 }
 
 export async function getServices(): Promise<Result<Service[]>> {

@@ -1,0 +1,2183 @@
+{
+ "duration": 120,
+ "words": [
+  {
+   "text": "Cinq",
+   "block": 0,
+   "start": 0.351,
+   "end": 0.528
+  },
+  {
+   "text": "excuses",
+   "block": 0,
+   "start": 0.528,
+   "end": 0.882
+  },
+  {
+   "text": "qu'ils",
+   "block": 0,
+   "start": 0.882,
+   "end": 1.236
+  },
+  {
+   "text": "donnent",
+   "block": 0,
+   "start": 1.236,
+   "end": 1.413
+  },
+  {
+   "text": "pour",
+   "block": 0,
+   "start": 1.413,
+   "end": 1.59
+  },
+  {
+   "text": "justifier",
+   "block": 0,
+   "start": 1.59,
+   "end": 2.09
+  },
+  {
+   "text": "qu'ils",
+   "block": 0,
+   "start": 2.09,
+   "end": 2.423
+  },
+  {
+   "text": "n'ont",
+   "block": 0,
+   "start": 2.423,
+   "end": 2.59
+  },
+  {
+   "text": "pas",
+   "block": 0,
+   "start": 2.59,
+   "end": 2.757
+  },
+  {
+   "text": "de",
+   "block": 0,
+   "start": 2.757,
+   "end": 2.923
+  },
+  {
+   "text": "site",
+   "block": 0,
+   "start": 2.923,
+   "end": 3.09
+  },
+  {
+   "text": "web.",
+   "block": 0,
+   "start": 3.09,
+   "end": 3.86
+  },
+  {
+   "text": "Excuse",
+   "block": 1,
+   "start": 3.86,
+   "end": 4.39
+  },
+  {
+   "text": "numéro",
+   "block": 1,
+   "start": 4.39,
+   "end": 5.012
+  },
+  {
+   "text": "cinq.",
+   "block": 1,
+   "start": 5.012,
+   "end": 5.22
+  },
+  {
+   "text": "« J'ai",
+   "block": 1,
+   "start": 5.838,
+   "end": 6.001
+  },
+  {
+   "text": "WhatsApp,",
+   "block": 1,
+   "start": 6.001,
+   "end": 6.326
+  },
+  {
+   "text": "je",
+   "block": 1,
+   "start": 6.326,
+   "end": 6.489
+  },
+  {
+   "text": "crois",
+   "block": 1,
+   "start": 6.489,
+   "end": 6.652
+  },
+  {
+   "text": "que",
+   "block": 1,
+   "start": 6.652,
+   "end": 6.814
+  },
+  {
+   "text": "ça",
+   "block": 1,
+   "start": 6.814,
+   "end": 6.977
+  },
+  {
+   "text": "me",
+   "block": 1,
+   "start": 6.977,
+   "end": 7.14
+  },
+  {
+   "text": "suffit. »",
+   "block": 1,
+   "start": 7.14,
+   "end": 7.488
+  },
+  {
+   "text": "Oui,",
+   "block": 1,
+   "start": 7.488,
+   "end": 8.236
+  },
+  {
+   "text": "tu",
+   "block": 1,
+   "start": 8.236,
+   "end": 8.41
+  },
+  {
+   "text": "gardes",
+   "block": 1,
+   "start": 8.41,
+   "end": 8.685
+  },
+  {
+   "text": "ton",
+   "block": 1,
+   "start": 8.685,
+   "end": 8.96
+  },
+  {
+   "text": "WhatsApp.",
+   "block": 1,
+   "start": 8.96,
+   "end": 9.341
+  },
+  {
+   "text": "Le",
+   "block": 1,
+   "start": 9.68,
+   "end": 9.793
+  },
+  {
+   "text": "client",
+   "block": 1,
+   "start": 9.793,
+   "end": 9.906
+  },
+  {
+   "text": "choisit",
+   "block": 1,
+   "start": 9.906,
+   "end": 10.132
+  },
+  {
+   "text": "sur",
+   "block": 1,
+   "start": 10.132,
+   "end": 10.245
+  },
+  {
+   "text": "ta",
+   "block": 1,
+   "start": 10.245,
+   "end": 10.358
+  },
+  {
+   "text": "boutique",
+   "block": 1,
+   "start": 10.358,
+   "end": 10.697
+  },
+  {
+   "text": "en",
+   "block": 1,
+   "start": 10.697,
+   "end": 10.81
+  },
+  {
+   "text": "ligne,",
+   "block": 1,
+   "start": 10.81,
+   "end": 11.077
+  },
+  {
+   "text": "et",
+   "block": 1,
+   "start": 11.077,
+   "end": 11.343
+  },
+  {
+   "text": "la",
+   "block": 1,
+   "start": 11.343,
+   "end": 11.61
+  },
+  {
+   "text": "commande",
+   "block": 1,
+   "start": 11.61,
+   "end": 11.87
+  },
+  {
+   "text": "arrive…",
+   "block": 1,
+   "start": 11.87,
+   "end": 12.195
+  },
+  {
+   "text": "sur",
+   "block": 1,
+   "start": 12.195,
+   "end": 12.357
+  },
+  {
+   "text": "TON",
+   "block": 1,
+   "start": 12.357,
+   "end": 12.519
+  },
+  {
+   "text": "WhatsApp.",
+   "block": 1,
+   "start": 12.519,
+   "end": 12.844
+  },
+  {
+   "text": "Tu",
+   "block": 1,
+   "start": 12.844,
+   "end": 13.006
+  },
+  {
+   "text": "ajoutes",
+   "block": 1,
+   "start": 13.006,
+   "end": 13.742
+  },
+  {
+   "text": "un",
+   "block": 1,
+   "start": 13.742,
+   "end": 13.904
+  },
+  {
+   "text": "produit",
+   "block": 1,
+   "start": 13.904,
+   "end": 14.229
+  },
+  {
+   "text": "comme",
+   "block": 1,
+   "start": 14.229,
+   "end": 14.391
+  },
+  {
+   "text": "tu",
+   "block": 1,
+   "start": 14.391,
+   "end": 14.553
+  },
+  {
+   "text": "remplis",
+   "block": 1,
+   "start": 14.553,
+   "end": 14.878
+  },
+  {
+   "text": "un",
+   "block": 1,
+   "start": 14.878,
+   "end": 15.04
+  },
+  {
+   "text": "formulaire.",
+   "block": 1,
+   "start": 15.04,
+   "end": 15.624
+  },
+  {
+   "text": "Ça,",
+   "block": 1,
+   "start": 15.947,
+   "end": 16.121
+  },
+  {
+   "text": "c'est",
+   "block": 1,
+   "start": 16.121,
+   "end": 16.296
+  },
+  {
+   "text": "sur",
+   "block": 1,
+   "start": 16.296,
+   "end": 16.47
+  },
+  {
+   "text": "KOUMALE.",
+   "block": 1,
+   "start": 16.47,
+   "end": 16.991
+  },
+  {
+   "text": "Dont",
+   "block": 1,
+   "start": 16.991,
+   "end": 17.165
+  },
+  {
+   "text": "la",
+   "block": 1,
+   "start": 17.165,
+   "end": 17.339
+  },
+  {
+   "text": "licence",
+   "block": 1,
+   "start": 17.339,
+   "end": 17.686
+  },
+  {
+   "text": "est",
+   "block": 1,
+   "start": 17.686,
+   "end": 17.86
+  },
+  {
+   "text": "en",
+   "block": 1,
+   "start": 17.86,
+   "end": 18.034
+  },
+  {
+   "text": "vente,",
+   "block": 1,
+   "start": 18.034,
+   "end": 18.207
+  },
+  {
+   "text": "mais",
+   "block": 1,
+   "start": 18.207,
+   "end": 18.381
+  },
+  {
+   "text": "si",
+   "block": 1,
+   "start": 18.381,
+   "end": 18.555
+  },
+  {
+   "text": "tu",
+   "block": 1,
+   "start": 18.555,
+   "end": 18.729
+  },
+  {
+   "text": "veux",
+   "block": 1,
+   "start": 18.729,
+   "end": 18.902
+  },
+  {
+   "text": "quelque",
+   "block": 1,
+   "start": 18.902,
+   "end": 19.25
+  },
+  {
+   "text": "chose",
+   "block": 1,
+   "start": 19.25,
+   "end": 19.424
+  },
+  {
+   "text": "de",
+   "block": 1,
+   "start": 19.424,
+   "end": 19.598
+  },
+  {
+   "text": "personnalisé,",
+   "block": 1,
+   "start": 19.598,
+   "end": 20.466
+  },
+  {
+   "text": "le",
+   "block": 1,
+   "start": 20.466,
+   "end": 20.64
+  },
+  {
+   "text": "schéma",
+   "block": 1,
+   "start": 20.64,
+   "end": 21.19
+  },
+  {
+   "text": "fonctionne.",
+   "block": 1,
+   "start": 21.19,
+   "end": 22.2
+  },
+  {
+   "text": "Excuse",
+   "block": 2,
+   "start": 22.2,
+   "end": 22.64
+  },
+  {
+   "text": "numéro",
+   "block": 2,
+   "start": 22.64,
+   "end": 23.306
+  },
+  {
+   "text": "quatre.",
+   "block": 2,
+   "start": 23.306,
+   "end": 24.09
+  },
+  {
+   "text": "« J'ai",
+   "block": 2,
+   "start": 24.09,
+   "end": 24.28
+  },
+  {
+   "text": "déjà",
+   "block": 2,
+   "start": 24.28,
+   "end": 24.629
+  },
+  {
+   "text": "un",
+   "block": 2,
+   "start": 24.629,
+   "end": 24.804
+  },
+  {
+   "text": "site. »",
+   "block": 2,
+   "start": 24.804,
+   "end": 24.978
+  },
+  {
+   "text": "Il",
+   "block": 2,
+   "start": 24.978,
+   "end": 25.595
+  },
+  {
+   "text": "te",
+   "block": 2,
+   "start": 25.595,
+   "end": 25.77
+  },
+  {
+   "text": "ramène",
+   "block": 2,
+   "start": 25.77,
+   "end": 26.09
+  },
+  {
+   "text": "combien",
+   "block": 2,
+   "start": 26.09,
+   "end": 26.417
+  },
+  {
+   "text": "de",
+   "block": 2,
+   "start": 26.417,
+   "end": 26.58
+  },
+  {
+   "text": "réservations,",
+   "block": 2,
+   "start": 26.58,
+   "end": 27.339
+  },
+  {
+   "text": "ton",
+   "block": 2,
+   "start": 27.339,
+   "end": 27.529
+  },
+  {
+   "text": "site ?",
+   "block": 2,
+   "start": 27.529,
+   "end": 27.719
+  },
+  {
+   "text": "Un",
+   "block": 2,
+   "start": 28.038,
+   "end": 28.357
+  },
+  {
+   "text": "site,",
+   "block": 2,
+   "start": 28.357,
+   "end": 28.503
+  },
+  {
+   "text": "ça",
+   "block": 2,
+   "start": 28.503,
+   "end": 28.648
+  },
+  {
+   "text": "ne",
+   "block": 2,
+   "start": 28.648,
+   "end": 28.794
+  },
+  {
+   "text": "sert",
+   "block": 2,
+   "start": 28.794,
+   "end": 28.94
+  },
+  {
+   "text": "pas",
+   "block": 2,
+   "start": 28.94,
+   "end": 29.085
+  },
+  {
+   "text": "qu'à",
+   "block": 2,
+   "start": 29.085,
+   "end": 29.377
+  },
+  {
+   "text": "exister.",
+   "block": 2,
+   "start": 29.377,
+   "end": 29.814
+  },
+  {
+   "text": "Ça",
+   "block": 2,
+   "start": 30.124,
+   "end": 30.31
+  },
+  {
+   "text": "sert",
+   "block": 2,
+   "start": 30.31,
+   "end": 30.495
+  },
+  {
+   "text": "à",
+   "block": 2,
+   "start": 30.495,
+   "end": 30.681
+  },
+  {
+   "text": "convertir,",
+   "block": 2,
+   "start": 30.681,
+   "end": 31.238
+  },
+  {
+   "text": "à",
+   "block": 2,
+   "start": 31.238,
+   "end": 31.644
+  },
+  {
+   "text": "faire",
+   "block": 2,
+   "start": 31.644,
+   "end": 31.83
+  },
+  {
+   "text": "évoluer.",
+   "block": 2,
+   "start": 31.83,
+   "end": 32.425
+  },
+  {
+   "text": "En",
+   "block": 2,
+   "start": 32.425,
+   "end": 33.12
+  },
+  {
+   "text": "deux",
+   "block": 2,
+   "start": 33.12,
+   "end": 33.318
+  },
+  {
+   "text": "minutes,",
+   "block": 2,
+   "start": 33.318,
+   "end": 33.934
+  },
+  {
+   "text": "hop,",
+   "block": 2,
+   "start": 33.934,
+   "end": 34.132
+  },
+  {
+   "text": "c'est",
+   "block": 2,
+   "start": 34.132,
+   "end": 34.33
+  },
+  {
+   "text": "réservé.",
+   "block": 2,
+   "start": 34.33,
+   "end": 34.877
+  },
+  {
+   "text": "Excuse",
+   "block": 3,
+   "start": 35.547,
+   "end": 35.97
+  },
+  {
+   "text": "numéro",
+   "block": 3,
+   "start": 35.97,
+   "end": 36.33
+  },
+  {
+   "text": "trois.",
+   "block": 3,
+   "start": 36.33,
+   "end": 36.578
+  },
+  {
+   "text": "« Mes",
+   "block": 3,
+   "start": 36.578,
+   "end": 37.443
+  },
+  {
+   "text": "clients",
+   "block": 3,
+   "start": 37.443,
+   "end": 37.692
+  },
+  {
+   "text": "ne",
+   "block": 3,
+   "start": 37.692,
+   "end": 37.94
+  },
+  {
+   "text": "sont",
+   "block": 3,
+   "start": 37.94,
+   "end": 38.1
+  },
+  {
+   "text": "pas",
+   "block": 3,
+   "start": 38.1,
+   "end": 38.259
+  },
+  {
+   "text": "sur",
+   "block": 3,
+   "start": 38.259,
+   "end": 38.419
+  },
+  {
+   "text": "internet. »",
+   "block": 3,
+   "start": 38.419,
+   "end": 38.898
+  },
+  {
+   "text": "Tu",
+   "block": 3,
+   "start": 38.898,
+   "end": 39.057
+  },
+  {
+   "text": "es",
+   "block": 3,
+   "start": 39.057,
+   "end": 39.801
+  },
+  {
+   "text": "en",
+   "block": 3,
+   "start": 39.801,
+   "end": 39.961
+  },
+  {
+   "text": "train",
+   "block": 3,
+   "start": 39.961,
+   "end": 40.12
+  },
+  {
+   "text": "de",
+   "block": 3,
+   "start": 40.12,
+   "end": 40.28
+  },
+  {
+   "text": "regarder",
+   "block": 3,
+   "start": 40.28,
+   "end": 40.82
+  },
+  {
+   "text": "une",
+   "block": 3,
+   "start": 40.82,
+   "end": 41
+  },
+  {
+   "text": "vidéo…",
+   "block": 3,
+   "start": 41,
+   "end": 41.469
+  },
+  {
+   "text": "sur",
+   "block": 3,
+   "start": 41.469,
+   "end": 41.703
+  },
+  {
+   "text": "internet.",
+   "block": 3,
+   "start": 41.703,
+   "end": 42.406
+  },
+  {
+   "text": "Ton",
+   "block": 3,
+   "start": 42.406,
+   "end": 43.1
+  },
+  {
+   "text": "client",
+   "block": 3,
+   "start": 43.1,
+   "end": 43.46
+  },
+  {
+   "text": "aussi.",
+   "block": 3,
+   "start": 43.46,
+   "end": 43.797
+  },
+  {
+   "text": "Et",
+   "block": 3,
+   "start": 44.08,
+   "end": 44.252
+  },
+  {
+   "text": "à",
+   "block": 3,
+   "start": 44.252,
+   "end": 44.425
+  },
+  {
+   "text": "chaque",
+   "block": 3,
+   "start": 44.425,
+   "end": 44.77
+  },
+  {
+   "text": "commande,",
+   "block": 3,
+   "start": 44.77,
+   "end": 45.133
+  },
+  {
+   "text": "tu",
+   "block": 3,
+   "start": 45.133,
+   "end": 45.518
+  },
+  {
+   "text": "es",
+   "block": 3,
+   "start": 45.518,
+   "end": 45.7
+  },
+  {
+   "text": "prévenu.",
+   "block": 3,
+   "start": 45.7,
+   "end": 46.286
+  },
+  {
+   "text": "Excuse",
+   "block": 4,
+   "start": 46.97,
+   "end": 47.33
+  },
+  {
+   "text": "numéro",
+   "block": 4,
+   "start": 47.33,
+   "end": 47.84
+  },
+  {
+   "text": "deux,",
+   "block": 4,
+   "start": 47.84,
+   "end": 48.01
+  },
+  {
+   "text": "et",
+   "block": 4,
+   "start": 48.01,
+   "end": 48.18
+  },
+  {
+   "text": "je",
+   "block": 4,
+   "start": 48.18,
+   "end": 48.35
+  },
+  {
+   "text": "ne",
+   "block": 4,
+   "start": 48.35,
+   "end": 48.52
+  },
+  {
+   "text": "l'aime",
+   "block": 4,
+   "start": 48.52,
+   "end": 48.69
+  },
+  {
+   "text": "pas,",
+   "block": 4,
+   "start": 48.69,
+   "end": 48.86
+  },
+  {
+   "text": "celle-là.",
+   "block": 4,
+   "start": 48.86,
+   "end": 49.38
+  },
+  {
+   "text": "« Les",
+   "block": 4,
+   "start": 49.795,
+   "end": 50.05
+  },
+  {
+   "text": "beaux",
+   "block": 4,
+   "start": 50.05,
+   "end": 50.305
+  },
+  {
+   "text": "sites,",
+   "block": 4,
+   "start": 50.305,
+   "end": 50.56
+  },
+  {
+   "text": "c'est",
+   "block": 4,
+   "start": 50.56,
+   "end": 50.82
+  },
+  {
+   "text": "cher",
+   "block": 4,
+   "start": 50.82,
+   "end": 51.015
+  },
+  {
+   "text": "et",
+   "block": 4,
+   "start": 51.015,
+   "end": 51.21
+  },
+  {
+   "text": "c'est",
+   "block": 4,
+   "start": 51.21,
+   "end": 51.405
+  },
+  {
+   "text": "pour",
+   "block": 4,
+   "start": 51.405,
+   "end": 51.6
+  },
+  {
+   "text": "les",
+   "block": 4,
+   "start": 51.6,
+   "end": 51.795
+  },
+  {
+   "text": "grandes",
+   "block": 4,
+   "start": 51.795,
+   "end": 51.99
+  },
+  {
+   "text": "marques. »",
+   "block": 4,
+   "start": 51.99,
+   "end": 52.899
+  },
+  {
+   "text": "Une",
+   "block": 4,
+   "start": 53.127,
+   "end": 53.379
+  },
+  {
+   "text": "banque.",
+   "block": 4,
+   "start": 53.379,
+   "end": 53.885
+  },
+  {
+   "text": "Une",
+   "block": 4,
+   "start": 54.055,
+   "end": 54.234
+  },
+  {
+   "text": "appli",
+   "block": 4,
+   "start": 54.234,
+   "end": 54.591
+  },
+  {
+   "text": "de",
+   "block": 4,
+   "start": 54.591,
+   "end": 54.77
+  },
+  {
+   "text": "lecture.",
+   "block": 4,
+   "start": 54.77,
+   "end": 55.5
+  },
+  {
+   "text": "Une",
+   "block": 4,
+   "start": 55.836,
+   "end": 56.06
+  },
+  {
+   "text": "marketplace.",
+   "block": 4,
+   "start": 56.06,
+   "end": 56.735
+  },
+  {
+   "text": "Un",
+   "block": 4,
+   "start": 56.735,
+   "end": 56.96
+  },
+  {
+   "text": "portfolio",
+   "block": 4,
+   "start": 56.96,
+   "end": 57.5
+  },
+  {
+   "text": "qui",
+   "block": 4,
+   "start": 57.5,
+   "end": 57.68
+  },
+  {
+   "text": "bouge",
+   "block": 4,
+   "start": 57.68,
+   "end": 57.903
+  },
+  {
+   "text": "tout",
+   "block": 4,
+   "start": 57.903,
+   "end": 58.125
+  },
+  {
+   "text": "seul.",
+   "block": 4,
+   "start": 58.125,
+   "end": 58.348
+  },
+  {
+   "text": "Je",
+   "block": 4,
+   "start": 58.348,
+   "end": 58.571
+  },
+  {
+   "text": "dis",
+   "block": 4,
+   "start": 58.571,
+   "end": 59.076
+  },
+  {
+   "text": "pas",
+   "block": 4,
+   "start": 59.076,
+   "end": 59.299
+  },
+  {
+   "text": "que",
+   "block": 4,
+   "start": 59.299,
+   "end": 59.522
+  },
+  {
+   "text": "je",
+   "block": 4,
+   "start": 59.522,
+   "end": 59.745
+  },
+  {
+   "text": "suis",
+   "block": 4,
+   "start": 59.745,
+   "end": 59.967
+  },
+  {
+   "text": "un",
+   "block": 4,
+   "start": 59.967,
+   "end": 60.19
+  },
+  {
+   "text": "expert",
+   "block": 4,
+   "start": 60.19,
+   "end": 60.552
+  },
+  {
+   "text": "en",
+   "block": 4,
+   "start": 60.552,
+   "end": 60.733
+  },
+  {
+   "text": "UI/UX…",
+   "block": 4,
+   "start": 60.733,
+   "end": 61.458
+  },
+  {
+   "text": "mais",
+   "block": 4,
+   "start": 61.458,
+   "end": 61.639
+  },
+  {
+   "text": "je",
+   "block": 4,
+   "start": 61.639,
+   "end": 62.221
+  },
+  {
+   "text": "crois",
+   "block": 4,
+   "start": 62.221,
+   "end": 62.402
+  },
+  {
+   "text": "que",
+   "block": 4,
+   "start": 62.402,
+   "end": 62.583
+  },
+  {
+   "text": "je",
+   "block": 4,
+   "start": 62.583,
+   "end": 62.764
+  },
+  {
+   "text": "m'en",
+   "block": 4,
+   "start": 62.764,
+   "end": 62.945
+  },
+  {
+   "text": "sors",
+   "block": 4,
+   "start": 62.945,
+   "end": 63.127
+  },
+  {
+   "text": "pas",
+   "block": 4,
+   "start": 63.127,
+   "end": 63.308
+  },
+  {
+   "text": "mal,",
+   "block": 4,
+   "start": 63.308,
+   "end": 63.489
+  },
+  {
+   "text": "en",
+   "block": 4,
+   "start": 63.489,
+   "end": 63.67
+  },
+  {
+   "text": "vrai.",
+   "block": 4,
+   "start": 63.67,
+   "end": 63.894
+  },
+  {
+   "text": "Et",
+   "block": 4,
+   "start": 63.894,
+   "end": 64.118
+  },
+  {
+   "text": "les",
+   "block": 4,
+   "start": 64.118,
+   "end": 64.342
+  },
+  {
+   "text": "prix,",
+   "block": 4,
+   "start": 64.342,
+   "end": 64.566
+  },
+  {
+   "text": "qui",
+   "block": 4,
+   "start": 64.566,
+   "end": 64.79
+  },
+  {
+   "text": "sont",
+   "block": 4,
+   "start": 64.79,
+   "end": 64.95
+  },
+  {
+   "text": "négociables",
+   "block": 4,
+   "start": 64.95,
+   "end": 65.455
+  },
+  {
+   "text": "en",
+   "block": 4,
+   "start": 65.455,
+   "end": 65.623
+  },
+  {
+   "text": "plus.",
+   "block": 4,
+   "start": 65.623,
+   "end": 65.791
+  },
+  {
+   "text": "Non,",
+   "block": 4,
+   "start": 65.791,
+   "end": 65.959
+  },
+  {
+   "text": "tu",
+   "block": 4,
+   "start": 65.959,
+   "end": 66.513
+  },
+  {
+   "text": "peux",
+   "block": 4,
+   "start": 66.513,
+   "end": 66.681
+  },
+  {
+   "text": "avoir",
+   "block": 4,
+   "start": 66.681,
+   "end": 67.017
+  },
+  {
+   "text": "un",
+   "block": 4,
+   "start": 67.017,
+   "end": 67.185
+  },
+  {
+   "text": "site",
+   "block": 4,
+   "start": 67.185,
+   "end": 67.354
+  },
+  {
+   "text": "de",
+   "block": 4,
+   "start": 67.354,
+   "end": 67.522
+  },
+  {
+   "text": "qualité",
+   "block": 4,
+   "start": 67.522,
+   "end": 68.026
+  },
+  {
+   "text": "à",
+   "block": 4,
+   "start": 68.026,
+   "end": 68.194
+  },
+  {
+   "text": "petit",
+   "block": 4,
+   "start": 68.194,
+   "end": 68.531
+  },
+  {
+   "text": "prix.",
+   "block": 4,
+   "start": 68.531,
+   "end": 68.699
+  },
+  {
+   "text": "Excuse",
+   "block": 5,
+   "start": 69.366,
+   "end": 69.854
+  },
+  {
+   "text": "numéro",
+   "block": 5,
+   "start": 69.854,
+   "end": 70.585
+  },
+  {
+   "text": "un.",
+   "block": 5,
+   "start": 70.585,
+   "end": 70.829
+  },
+  {
+   "text": "Et",
+   "block": 5,
+   "start": 71.132,
+   "end": 71.344
+  },
+  {
+   "text": "c'est",
+   "block": 5,
+   "start": 71.344,
+   "end": 71.556
+  },
+  {
+   "text": "la",
+   "block": 5,
+   "start": 71.556,
+   "end": 71.769
+  },
+  {
+   "text": "seule",
+   "block": 5,
+   "start": 71.769,
+   "end": 71.981
+  },
+  {
+   "text": "excuse",
+   "block": 5,
+   "start": 71.981,
+   "end": 72.406
+  },
+  {
+   "text": "valable :",
+   "block": 5,
+   "start": 72.406,
+   "end": 73.669
+  },
+  {
+   "text": "« Je",
+   "block": 5,
+   "start": 73.669,
+   "end": 73.881
+  },
+  {
+   "text": "ne",
+   "block": 5,
+   "start": 73.881,
+   "end": 74.094
+  },
+  {
+   "text": "connais",
+   "block": 5,
+   "start": 74.094,
+   "end": 74.518
+  },
+  {
+   "text": "pas",
+   "block": 5,
+   "start": 74.518,
+   "end": 74.731
+  },
+  {
+   "text": "de",
+   "block": 5,
+   "start": 74.731,
+   "end": 74.943
+  },
+  {
+   "text": "développeur. »",
+   "block": 5,
+   "start": 74.943,
+   "end": 75.793
+  },
+  {
+   "text": "Bah",
+   "block": 5,
+   "start": 75.793,
+   "end": 76.005
+  },
+  {
+   "text": "maintenant,",
+   "block": 5,
+   "start": 76.005,
+   "end": 76.642
+  },
+  {
+   "text": "si.",
+   "block": 5,
+   "start": 76.642,
+   "end": 76.855
+  },
+  {
+   "text": "Maintenant",
+   "block": 5,
+   "start": 77.039,
+   "end": 77.681
+  },
+  {
+   "text": "que",
+   "block": 5,
+   "start": 77.681,
+   "end": 77.895
+  },
+  {
+   "text": "tu",
+   "block": 5,
+   "start": 77.895,
+   "end": 78.109
+  },
+  {
+   "text": "es",
+   "block": 5,
+   "start": 78.109,
+   "end": 78.324
+  },
+  {
+   "text": "sur",
+   "block": 5,
+   "start": 78.324,
+   "end": 78.538
+  },
+  {
+   "text": "cette",
+   "block": 5,
+   "start": 78.538,
+   "end": 78.752
+  },
+  {
+   "text": "vidéo,",
+   "block": 5,
+   "start": 78.752,
+   "end": 79.18
+  },
+  {
+   "text": "tu",
+   "block": 5,
+   "start": 79.18,
+   "end": 79.394
+  },
+  {
+   "text": "en",
+   "block": 5,
+   "start": 79.394,
+   "end": 79.803
+  },
+  {
+   "text": "connais",
+   "block": 5,
+   "start": 79.803,
+   "end": 80.232
+  },
+  {
+   "text": "un.",
+   "block": 5,
+   "start": 80.232,
+   "end": 80.446
+  },
+  {
+   "text": "C'est",
+   "block": 6,
+   "start": 81.58,
+   "end": 81.794
+  },
+  {
+   "text": "laquelle,",
+   "block": 6,
+   "start": 81.794,
+   "end": 82.223
+  },
+  {
+   "text": "ton",
+   "block": 6,
+   "start": 82.223,
+   "end": 82.437
+  },
+  {
+   "text": "excuse ?",
+   "block": 6,
+   "start": 82.437,
+   "end": 82.865
+  },
+  {
+   "text": "Dis-le",
+   "block": 6,
+   "start": 83.025,
+   "end": 83.242
+  },
+  {
+   "text": "en",
+   "block": 6,
+   "start": 83.242,
+   "end": 83.46
+  },
+  {
+   "text": "commentaire.",
+   "block": 6,
+   "start": 83.46,
+   "end": 84.112
+  },
+  {
+   "text": "Et",
+   "block": 6,
+   "start": 84.112,
+   "end": 84.33
+  },
+  {
+   "text": "envoie",
+   "block": 6,
+   "start": 84.33,
+   "end": 84.577
+  },
+  {
+   "text": "la",
+   "block": 6,
+   "start": 84.577,
+   "end": 84.7
+  },
+  {
+   "text": "vidéo",
+   "block": 6,
+   "start": 84.7,
+   "end": 85.107
+  },
+  {
+   "text": "à",
+   "block": 6,
+   "start": 85.107,
+   "end": 85.31
+  },
+  {
+   "text": "celui",
+   "block": 6,
+   "start": 85.31,
+   "end": 85.63
+  },
+  {
+   "text": "qui",
+   "block": 6,
+   "start": 85.63,
+   "end": 85.79
+  },
+  {
+   "text": "dit",
+   "block": 6,
+   "start": 85.79,
+   "end": 85.95
+  },
+  {
+   "text": "encore :",
+   "block": 6,
+   "start": 85.95,
+   "end": 86.27
+  },
+  {
+   "text": "« J'ai",
+   "block": 6,
+   "start": 86.27,
+   "end": 86.43
+  },
+  {
+   "text": "WhatsApp,",
+   "block": 6,
+   "start": 86.43,
+   "end": 86.889
+  },
+  {
+   "text": "ça",
+   "block": 6,
+   "start": 86.889,
+   "end": 87.118
+  },
+  {
+   "text": "me",
+   "block": 6,
+   "start": 87.118,
+   "end": 87.347
+  },
+  {
+   "text": "suffit. »",
+   "block": 6,
+   "start": 87.347,
+   "end": 87.806
+  },
+  {
+   "text": "Allez",
+   "block": 7,
+   "start": 88.248,
+   "end": 88.583
+  },
+  {
+   "text": "sur",
+   "block": 7,
+   "start": 88.583,
+   "end": 88.751
+  },
+  {
+   "text": "mbokocode.site",
+   "block": 7,
+   "start": 88.751,
+   "end": 89.59
+  },
+  {
+   "text": "pour",
+   "block": 7,
+   "start": 89.59,
+   "end": 89.79
+  },
+  {
+   "text": "voir",
+   "block": 7,
+   "start": 89.79,
+   "end": 89.955
+  },
+  {
+   "text": "mes",
+   "block": 7,
+   "start": 89.955,
+   "end": 90.12
+  },
+  {
+   "text": "projets",
+   "block": 7,
+   "start": 90.12,
+   "end": 90.46
+  },
+  {
+   "text": "et",
+   "block": 7,
+   "start": 90.46,
+   "end": 90.63
+  },
+  {
+   "text": "me",
+   "block": 7,
+   "start": 90.63,
+   "end": 90.8
+  },
+  {
+   "text": "contacter,",
+   "block": 7,
+   "start": 90.8,
+   "end": 91.392
+  },
+  {
+   "text": "ou",
+   "block": 7,
+   "start": 91.392,
+   "end": 91.92
+  },
+  {
+   "text": "faites-le",
+   "block": 7,
+   "start": 91.92,
+   "end": 92.35
+  },
+  {
+   "text": "directement",
+   "block": 7,
+   "start": 92.35,
+   "end": 92.857
+  },
+  {
+   "text": "en",
+   "block": 7,
+   "start": 92.857,
+   "end": 93.026
+  },
+  {
+   "text": "DM",
+   "block": 7,
+   "start": 93.026,
+   "end": 93.364
+  },
+  {
+   "text": "ici",
+   "block": 7,
+   "start": 93.364,
+   "end": 93.702
+  },
+  {
+   "text": "sur",
+   "block": 7,
+   "start": 93.702,
+   "end": 93.871
+  },
+  {
+   "text": "TikTok.",
+   "block": 7,
+   "start": 93.871,
+   "end": 94.209
+  },
+  {
+   "text": "J'ai",
+   "block": 7,
+   "start": 94.391,
+   "end": 94.536
+  },
+  {
+   "text": "pas",
+   "block": 7,
+   "start": 94.536,
+   "end": 94.681
+  },
+  {
+   "text": "encore",
+   "block": 7,
+   "start": 94.681,
+   "end": 94.972
+  },
+  {
+   "text": "mille",
+   "block": 7,
+   "start": 94.972,
+   "end": 95.117
+  },
+  {
+   "text": "abonnés,",
+   "block": 7,
+   "start": 95.117,
+   "end": 95.552
+  },
+  {
+   "text": "je",
+   "block": 7,
+   "start": 95.552,
+   "end": 96.173
+  },
+  {
+   "text": "n'en",
+   "block": 7,
+   "start": 96.173,
+   "end": 96.318
+  },
+  {
+   "text": "ai",
+   "block": 7,
+   "start": 96.318,
+   "end": 96.463
+  },
+  {
+   "text": "même",
+   "block": 7,
+   "start": 96.463,
+   "end": 96.609
+  },
+  {
+   "text": "pas",
+   "block": 7,
+   "start": 96.609,
+   "end": 96.754
+  },
+  {
+   "text": "cinquante",
+   "block": 7,
+   "start": 96.754,
+   "end": 97.044
+  },
+  {
+   "text": "d'ailleurs,",
+   "block": 7,
+   "start": 97.044,
+   "end": 97.334
+  },
+  {
+   "text": "donc",
+   "block": 7,
+   "start": 97.334,
+   "end": 97.48
+  },
+  {
+   "text": "pas",
+   "block": 7,
+   "start": 97.48,
+   "end": 97.625
+  },
+  {
+   "text": "de",
+   "block": 7,
+   "start": 97.625,
+   "end": 97.77
+  },
+  {
+   "text": "lien",
+   "block": 7,
+   "start": 97.77,
+   "end": 98.033
+  },
+  {
+   "text": "en",
+   "block": 7,
+   "start": 98.033,
+   "end": 98.296
+  },
+  {
+   "text": "bio.",
+   "block": 7,
+   "start": 98.296,
+   "end": 98.56
+  },
+  {
+   "text": "Alors",
+   "block": 7,
+   "start": 98.742,
+   "end": 99.047
+  },
+  {
+   "text": "tu",
+   "block": 7,
+   "start": 99.047,
+   "end": 99.199
+  },
+  {
+   "text": "devras",
+   "block": 7,
+   "start": 99.199,
+   "end": 99.505
+  },
+  {
+   "text": "le",
+   "block": 7,
+   "start": 99.505,
+   "end": 99.657
+  },
+  {
+   "text": "taper",
+   "block": 7,
+   "start": 99.657,
+   "end": 99.962
+  },
+  {
+   "text": "à",
+   "block": 7,
+   "start": 99.962,
+   "end": 100.115
+  },
+  {
+   "text": "la",
+   "block": 7,
+   "start": 100.115,
+   "end": 100.267
+  },
+  {
+   "text": "main.",
+   "block": 7,
+   "start": 100.267,
+   "end": 100.42
+  },
+  {
+   "text": "Comme",
+   "block": 7,
+   "start": 100.42,
+   "end": 100.567
+  },
+  {
+   "text": "en",
+   "block": 7,
+   "start": 100.567,
+   "end": 100.715
+  },
+  {
+   "text": "1900.",
+   "block": 7,
+   "start": 100.715,
+   "end": 101.305
+  },
+  {
+   "text": "C'est",
+   "block": 7,
+   "start": 101.305,
+   "end": 101.453
+  },
+  {
+   "text": "toi",
+   "block": 7,
+   "start": 101.453,
+   "end": 101.6
+  },
+  {
+   "text": "aussi,",
+   "block": 7,
+   "start": 101.6,
+   "end": 102.006
+  },
+  {
+   "text": "tu",
+   "block": 7,
+   "start": 102.006,
+   "end": 102.209
+  },
+  {
+   "text": "ne",
+   "block": 7,
+   "start": 102.209,
+   "end": 102.412
+  },
+  {
+   "text": "veux",
+   "block": 7,
+   "start": 102.412,
+   "end": 102.615
+  },
+  {
+   "text": "pas",
+   "block": 7,
+   "start": 102.615,
+   "end": 102.818
+  },
+  {
+   "text": "t'abonner ?",
+   "block": 7,
+   "start": 102.818,
+   "end": 104.05
+  },
+  {
+   "text": "Abonne-toi :",
+   "block": 7,
+   "start": 104.05,
+   "end": 104.629
+  },
+  {
+   "text": "tu",
+   "block": 7,
+   "start": 104.629,
+   "end": 105.536
+  },
+  {
+   "text": "verras",
+   "block": 7,
+   "start": 105.536,
+   "end": 105.825
+  },
+  {
+   "text": "les",
+   "block": 7,
+   "start": 105.825,
+   "end": 105.97
+  },
+  {
+   "text": "projets",
+   "block": 7,
+   "start": 105.97,
+   "end": 106.305
+  },
+  {
+   "text": "que",
+   "block": 7,
+   "start": 106.305,
+   "end": 106.472
+  },
+  {
+   "text": "je",
+   "block": 7,
+   "start": 106.472,
+   "end": 106.64
+  },
+  {
+   "text": "crée,",
+   "block": 7,
+   "start": 106.64,
+   "end": 106.93
+  },
+  {
+   "text": "et",
+   "block": 7,
+   "start": 106.93,
+   "end": 107.22
+  },
+  {
+   "text": "comment",
+   "block": 7,
+   "start": 107.22,
+   "end": 107.42
+  },
+  {
+   "text": "je",
+   "block": 7,
+   "start": 107.42,
+   "end": 107.62
+  },
+  {
+   "text": "les",
+   "block": 7,
+   "start": 107.62,
+   "end": 107.82
+  },
+  {
+   "text": "crée.",
+   "block": 7,
+   "start": 107.82,
+   "end": 108.014
+  },
+  {
+   "text": "Je",
+   "block": 8,
+   "start": 108.014,
+   "end": 108.579
+  },
+  {
+   "text": "code",
+   "block": 8,
+   "start": 108.579,
+   "end": 108.773
+  },
+  {
+   "text": "depuis",
+   "block": 8,
+   "start": 108.773,
+   "end": 109.16
+  },
+  {
+   "text": "Douala,",
+   "block": 8,
+   "start": 109.16,
+   "end": 109.473
+  },
+  {
+   "text": "au",
+   "block": 8,
+   "start": 109.473,
+   "end": 109.63
+  },
+  {
+   "text": "Cameroun.",
+   "block": 8,
+   "start": 109.63,
+   "end": 110.132
+  },
+  {
+   "text": "Pour",
+   "block": 8,
+   "start": 110.594,
+   "end": 110.819
+  },
+  {
+   "text": "des",
+   "block": 8,
+   "start": 110.819,
+   "end": 111.044
+  },
+  {
+   "text": "clients",
+   "block": 8,
+   "start": 111.044,
+   "end": 111.268
+  },
+  {
+   "text": "au",
+   "block": 8,
+   "start": 111.268,
+   "end": 111.493
+  },
+  {
+   "text": "Cameroun",
+   "block": 8,
+   "start": 111.493,
+   "end": 112.168
+  },
+  {
+   "text": "déjà,",
+   "block": 8,
+   "start": 112.168,
+   "end": 112.617
+  },
+  {
+   "text": "et",
+   "block": 8,
+   "start": 112.617,
+   "end": 112.842
+  },
+  {
+   "text": "aussi",
+   "block": 8,
+   "start": 112.842,
+   "end": 113.292
+  },
+  {
+   "text": "en",
+   "block": 8,
+   "start": 113.292,
+   "end": 113.516
+  },
+  {
+   "text": "France,",
+   "block": 8,
+   "start": 113.516,
+   "end": 113.741
+  },
+  {
+   "text": "à",
+   "block": 8,
+   "start": 113.741,
+   "end": 113.966
+  },
+  {
+   "text": "Strasbourg,",
+   "block": 8,
+   "start": 113.966,
+   "end": 114.899
+  },
+  {
+   "text": "pour",
+   "block": 8,
+   "start": 114.899,
+   "end": 115.124
+  },
+  {
+   "text": "Conakry",
+   "block": 8,
+   "start": 115.124,
+   "end": 115.798
+  },
+  {
+   "text": "en",
+   "block": 8,
+   "start": 115.798,
+   "end": 116.023
+  },
+  {
+   "text": "Guinée",
+   "block": 8,
+   "start": 116.023,
+   "end": 116.473
+  },
+  {
+   "text": "aussi…",
+   "block": 8,
+   "start": 116.473,
+   "end": 116.922
+  },
+  {
+   "text": "Et",
+   "block": 8,
+   "start": 116.922,
+   "end": 117.147
+  },
+  {
+   "text": "mon",
+   "block": 8,
+   "start": 117.147,
+   "end": 117.372
+  },
+  {
+   "text": "passeport",
+   "block": 8,
+   "start": 117.372,
+   "end": 118.046
+  },
+  {
+   "text": "a",
+   "block": 8,
+   "start": 118.046,
+   "end": 118.271
+  },
+  {
+   "text": "encore",
+   "block": 8,
+   "start": 118.271,
+   "end": 118.721
+  },
+  {
+   "text": "plein",
+   "block": 8,
+   "start": 118.721,
+   "end": 118.946
+  },
+  {
+   "text": "de",
+   "block": 8,
+   "start": 118.946,
+   "end": 119.17
+  },
+  {
+   "text": "pages",
+   "block": 8,
+   "start": 119.17,
+   "end": 119.395
+  },
+  {
+   "text": "vides.",
+   "block": 8,
+   "start": 119.395,
+   "end": 119.62
+  }
+ ]
+}

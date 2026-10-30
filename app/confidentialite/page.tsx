@@ -37,7 +37,7 @@ export default function PrivacyPage() {
       </section>
       <section>
         <h2>Pourquoi</h2>
-        <p>Pour répondre à ta demande, préparer une proposition si tu le souhaites, et publier ton avis après relecture si tu en laisses un. Rien d&apos;autre : pas de revente, pas de prospection non sollicitée.</p>
+        <p>Pour répondre à ta demande, préparer une proposition si tu le souhaites, et publier ton avis si tu en laisses un. Rien d&apos;autre : pas de revente, pas de prospection non sollicitée.</p>
       </section>
       <section>
         <h2>Prestataires</h2>

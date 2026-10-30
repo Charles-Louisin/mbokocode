@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { briefMailto, briefText, briefWhatsappLink, contactHref, isDeadline, isProjectType, teaserMessage } from "./project-brief";
+import { briefMailto, briefText, briefWhatsappLink, contactHref, isDeadline, isProjectType, offerInfosFrom, parseProjectType, teaserMessage, typeForOffer } from "./project-brief";
 import { normalizeWhatsappNumber, whatsappLink } from "./whatsapp";
 
 describe("lien WhatsApp", () => {
@@ -74,10 +74,41 @@ describe("brief de projet", () => {
 
   it("lien vers le parcours complet et lecture des paramètres", () => {
     expect(contactHref()).toBe("/contact");
-    expect(contactHref("saas", "2-3m")).toBe("/contact?type=saas&delai=2-3m");
-    expect(isProjectType("saas")).toBe(true);
+    expect(contactHref("surmesure", "2-3m")).toBe("/contact?type=surmesure&delai=2-3m");
+    expect(isProjectType("licence")).toBe(true);
     expect(isProjectType("toString")).toBe(false);
+    // Anciens liens de l'accueil : même parcours que le sur mesure.
+    expect(parseProjectType("saas")).toBe("surmesure");
+    expect(parseProjectType("toString")).toBeUndefined();
     expect(isDeadline("1m")).toBe(true);
     expect(isDeadline(null)).toBe(false);
+  });
+
+  it("chaque offre des tarifs ouvre le bon type de projet", () => {
+    expect(typeForOffer("landing-page")).toBe("landing");
+    expect(typeForOffer("sur-mesure")).toBe("surmesure");
+    expect(typeForOffer("licences")).toBe("licence");
+    expect(typeForOffer("inconnue")).toBeUndefined();
+  });
+
+  it("prix et conversion de chaque type, repris des offres", () => {
+    const offers = [
+      { id: "1", name: "Landing", slug: "landing-page", description: "", priceType: "from" as const, currency: "XAF", priceMin: 10_000_000, features: [], deliveryEstimate: "1 à 2 semaines", sortOrder: 1 },
+      { id: "2", name: "Sur mesure", slug: "sur-mesure", description: "", priceType: "quote" as const, currency: "XAF", features: [], sortOrder: 2 },
+    ];
+    const infos = offerInfosFrom(offers, { base: "XAF", eur: 1 / 655.957, usd: null, usdDate: null });
+    // Intl sépare les milliers et le symbole par des espaces insécables : on les normalise.
+    expect(infos.landing.price.replace(/\s/g, " ")).toBe("À partir de 100 000 FCFA");
+    expect(infos.landing.converted?.replace(/\s/g, " ")).toBe("≈ 152 €");
+    expect(infos.landing.delay).toBe("1 à 2 semaines");
+    expect(infos.surmesure.price).toBe("Sur devis");
+    expect(infos.vitrine.price).toBe("Sur devis");
+  });
+
+  it("une licence précise la solution choisie", () => {
+    const text = briefText({ type: "licence", features: ["paiement"], licence: { slug: "koumale", title: "KOUMALE", kicker: "Marketplace multi-vendeurs", liveUrl: "https://koumale.com/" }, name: "Awa", description: "Je veux lancer la marketplace à Abidjan." });
+    expect(text).toContain("Projet : Licence logicielle");
+    expect(text).toContain("Solution souhaitée en licence : KOUMALE (Marketplace multi-vendeurs) — https://koumale.com/");
+    expect(text).not.toContain("Modules :");
   });
 });

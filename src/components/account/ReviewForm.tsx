@@ -23,7 +23,7 @@ const field = "w-full rounded-2xl border hairline bg-transparent px-5 py-4 outli
 const chip = (selected: boolean) =>
   `rounded-full border px-4 py-2.5 text-sm transition-colors ${selected ? "border-cobalt-soft bg-cobalt/15" : "hairline hover:border-fg-subtle"}`;
 
-// Écrire ou modifier son avis. Toute modification repasse en relecture avant publication.
+// Écrire ou modifier son avis : il est publié directement.
 export function ReviewForm({ review, defaultName, onSaved, onCancel }: Props) {
   const uid = useId();
   const [rating, setRating] = useState(review?.rating ?? 0);
@@ -68,7 +68,7 @@ export function ReviewForm({ review, defaultName, onSaved, onCancel }: Props) {
         method: review ? "PATCH" : "POST",
         body,
       });
-      toast("success", review ? "Avis mis à jour : il repasse en relecture." : "Merci ! Ton avis est envoyé, je le relis avant de le publier.");
+      toast("success", review ? "Avis mis à jour." : "Merci ! Ton avis est publié.");
       onSaved(result.data);
     } catch (err) {
       if (err instanceof ApiError) {
@@ -217,7 +217,7 @@ export function ReviewForm({ review, defaultName, onSaved, onCancel }: Props) {
               aria-describedby={described("consent")}
               className="mt-1 size-5 shrink-0 accent-cobalt"
             />
-            <span>J&apos;accepte que cet avis, avec le nom affiché, soit publié sur ce site après relecture. Je peux le modifier ou le supprimer à tout moment.</span>
+            <span>J&apos;accepte que cet avis, avec le nom affiché, soit publié sur ce site. Je peux le modifier ou le supprimer à tout moment.</span>
           </label>
           {errorText("consent")}
         </div>
@@ -230,7 +230,7 @@ export function ReviewForm({ review, defaultName, onSaved, onCancel }: Props) {
           className="inline-flex items-center gap-2 rounded-full bg-fg px-7 py-4 font-medium text-bg transition-opacity duration-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {saving ? <Loader2 aria-hidden className="size-4 animate-spin" /> : <Send aria-hidden className="size-4" />}
-          {saving ? "Envoi…" : review ? "Enregistrer et renvoyer en relecture" : "Envoyer mon avis"}
+          {saving ? "Envoi…" : review ? "Enregistrer les modifications" : "Publier mon avis"}
         </button>
         {onCancel && (
           <button type="button" onClick={onCancel} className="link-draw inline-flex items-center gap-2 py-2 font-medium">
