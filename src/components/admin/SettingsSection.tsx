@@ -87,7 +87,8 @@ const SECTIONS: { key: keyof SiteContent; label: string; hint: string }[] = [
   { key: "afterDelivery", label: "Après la livraison", hint: "Pages Services et Tarifs." },
   { key: "licenceVsCustom", label: "Licence ou sur mesure", hint: "Page Tarifs." },
   { key: "places", label: "Lieux des projets", hint: "Carte de l'accueil (latitude, longitude)." },
-  { key: "creator", label: "Création de contenu", hint: "TikTok : chiffres (avec leur date de relevé) et vidéos. cover = adresse d'une miniature (facultatif)." },
+  { key: "creator", label: "TikTok personnel", hint: "Compte perso (humour, apprentissage du dev) : chiffres (avec leur date de relevé) et vidéos. cover = adresse d'une miniature (facultatif)." },
+  { key: "businessCreator", label: "TikTok entreprise", hint: "Compte @mbokocode : chiffres (avec leur date de relevé) et vidéos. cover = adresse d'une miniature (facultatif)." },
 ];
 
 // Chaque section du contenu s'édite en JSON : l'API vérifie sa forme avant d'enregistrer.

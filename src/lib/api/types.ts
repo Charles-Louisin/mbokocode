@@ -164,7 +164,10 @@ export type SiteContent = {
   afterDelivery: { title: string; text: string }[];
   places: { label: string; lat: number; lng: number }[];
   licenceVsCustom: { criterion: string; licence: string; custom: string }[];
+  /** Compte TikTok personnel (humour et apprentissage du dev). */
   creator?: Creator;
+  /** Compte TikTok entreprise MBOKO CODE. */
+  businessCreator?: Creator;
 };
 
 /** Création de contenu : chiffres relevés à une date, vidéos marquantes. */

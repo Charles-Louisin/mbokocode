@@ -12,7 +12,10 @@ const SPEED = 0.35; // px par image (≈ 20 px/s) : un défilement de vitrine, p
 // au focus ou au toucher, et se fait glisser au doigt. Sans animation demandée, elle reste immobile.
 // Au doigt, le défilement automatique ne reprend qu'une fois l'élan du glissement terminé : sinon il
 // écrit `scrollLeft` pendant l'inertie et la rangée saccade ou repart en arrière.
-export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; handle: string }) {
+/** Une vidéo de la pellicule, avec le compte qui l'a publiée. */
+export type ReelVideo = Creator["videos"][number] & { handle: string };
+
+export function CreatorReel({ videos }: { videos: ReelVideo[] }) {
   const track = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
 
@@ -106,7 +109,7 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
     <div
       ref={track}
       role="region"
-      aria-label={`Vidéos de @${handle} sur TikTok`}
+      aria-label="Vidéos TikTok"
       className="flex gap-5 overflow-x-auto overscroll-x-contain py-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {loop.map((copy) => (
@@ -137,7 +140,7 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
                 )}
                 <span aria-hidden className="absolute inset-0 bg-linear-to-t from-ink via-ink/10 to-ink/40" />
                 <span className="absolute left-4 top-4 flex items-center gap-1.5 text-xs font-medium text-ivory/85">
-                  <BrandIcon brand="tiktok" className="size-4" />@{handle}
+                  <BrandIcon brand="tiktok" className="size-4" />@{video.handle}
                 </span>
                 <span
                   aria-hidden
@@ -156,7 +159,7 @@ export function CreatorReel({ videos, handle }: { videos: Creator["videos"]; han
                 </span>
                 <span className="sr-only">
                   {video.caption}
-                  {video.views ? `, ${video.views} vues` : ""} (TikTok, nouvel onglet)
+                  {video.views ? `, ${video.views} vues` : ""}, @{video.handle} (TikTok, nouvel onglet)
                 </span>
               </a>
             </li>
