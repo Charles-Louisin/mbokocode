@@ -93,7 +93,8 @@ const SECTIONS: { key: keyof SiteContent; label: string; hint: string }[] = [
 
 // Chaque section du contenu s'édite en JSON : l'API vérifie sa forme avant d'enregistrer.
 function ContentSectionEditor({ content, section }: { content: AdminContent; section: (typeof SECTIONS)[number] }) {
-  const initial = JSON.stringify(content[section.key], null, 2);
+  // Section absente de la base (ancienne API) : `null` à remplir plutôt qu'une page cassée.
+  const initial = JSON.stringify(content[section.key] ?? null, null, 2);
   const [text, setText] = useState(initial);
   const [baseline, setBaseline] = useState(initial);
   const [parseError, setParseError] = useState<string | null>(null);
