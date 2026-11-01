@@ -64,13 +64,21 @@ export function TextArea({ value, onChange, rows = 4, mono = false, ...base }: B
 
 /** Liste éditée à raison d'un élément par ligne. */
 export function LinesField({ value, onChange, ...base }: Base & { value: string[]; onChange: (value: string[]) => void }) {
+  // Le texte saisi reste tel quel (lignes vides comprises, sinon Entrée ne crée pas de ligne) ;
+  // seule la liste transmise est nettoyée.
+  const [text, setText] = useState(value.join("\n"));
+  const parse = (raw: string) => raw.split("\n").map((line) => line.trim()).filter(Boolean);
+  const shown = parse(text).join("\n") === value.join("\n") ? text : value.join("\n");
   return (
     <TextArea
       {...base}
       hint={base.hint ?? "Un élément par ligne."}
       rows={Math.min(8, Math.max(3, value.length + 1))}
-      value={value.join("\n")}
-      onChange={(text) => onChange(text.split("\n").map((line) => line.trim()).filter(Boolean))}
+      value={shown}
+      onChange={(raw) => {
+        setText(raw);
+        onChange(parse(raw));
+      }}
     />
   );
 }

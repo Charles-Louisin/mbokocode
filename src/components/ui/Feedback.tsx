@@ -94,10 +94,37 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(() => ({ toast, confirm }), [toast, confirm]);
 
+  // Les fenêtres (<dialog> ouvert en modal) passent dans la « couche du dessus » du navigateur, qu'aucun
+  // z-index ne dépasse. La pile de toasts y va aussi (popover manuel) et repasse en tête à chaque toast
+  // et à chaque fenêtre ouverte : elle reste au-dessus de tout.
+  const stack = useRef<HTMLDivElement>(null);
+  const raise = useCallback(() => {
+    const element = stack.current;
+    if (!element?.showPopover) return;
+    if (element.matches(":popover-open")) element.hidePopover();
+    element.showPopover();
+  }, []);
+  useEffect(() => {
+    raise();
+    const observer = new MutationObserver((mutations) => {
+      if (mutations.some((m) => m.target instanceof HTMLDialogElement && m.target.open)) raise();
+    });
+    observer.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["open"] });
+    return () => observer.disconnect();
+  }, [raise]);
+  useEffect(() => {
+    if (toasts.length) raise();
+  }, [toasts, raise]);
+
   return (
     <FeedbackContext.Provider value={value}>
       {children}
-      <div aria-live="polite" className="pointer-events-none fixed right-3 top-3 z-[70] flex w-[min(24rem,calc(100%_-_1.5rem))] flex-col gap-2 md:right-5 md:top-5">
+      <div
+        ref={stack}
+        popover="manual"
+        aria-live="polite"
+        className="pointer-events-none fixed inset-auto right-3 top-3 z-[70] m-0 flex w-[min(24rem,calc(100%_-_1.5rem))] flex-col gap-2 overflow-visible border-0 bg-transparent p-0 text-ivory md:right-5 md:top-5"
+      >
         <AnimatePresence initial={false}>
           {toasts.map((item) => {
             const Icon = ICONS[item.kind];

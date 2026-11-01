@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import type { SiteContent } from "@/src/lib/api/types";
 import { type AdminContent, type AdminSettings, useAdminData } from "./data";
 import { Panel, SaveBar, TextArea, TextField, Toggle } from "./fields";
+import { ContentSectionEditor, SECTIONS } from "./ContentEditor";
 import { useSave } from "./useSave";
 
 function SettingsForm({ settings }: { settings: AdminSettings }) {
@@ -74,50 +74,6 @@ export function SettingsSection() {
       {!data && !error && <div className="h-40 animate-pulse rounded-xl bg-bg-raised" />}
       {data && <SettingsForm settings={data} />}
     </Panel>
-  );
-}
-
-const SECTIONS: { key: keyof SiteContent; label: string; hint: string }[] = [
-  { key: "journey", label: "Parcours", hint: "Page À propos. kind : venture, work ou school." },
-  { key: "skillGroups", label: "Compétences", hint: "Page À propos, avec les logos des outils connus." },
-  { key: "languages", label: "Langues", hint: "Page À propos." },
-  { key: "principles", label: "Façon de travailler", hint: "icon : messages, target, shield, code, gauge ou handshake." },
-  { key: "values", label: "Valeurs", hint: "Page À propos." },
-  { key: "method", label: "Méthode", hint: "Accueil et page Services." },
-  { key: "afterDelivery", label: "Après la livraison", hint: "Pages Services et Tarifs." },
-  { key: "licenceVsCustom", label: "Licence ou sur mesure", hint: "Page Tarifs." },
-  { key: "places", label: "Lieux des projets", hint: "Carte de l'accueil (latitude, longitude)." },
-  { key: "creator", label: "TikTok personnel", hint: "Compte perso (humour, apprentissage du dev) : chiffres (avec leur date de relevé) et vidéos. cover = adresse d'une miniature (facultatif)." },
-  { key: "businessCreator", label: "TikTok entreprise", hint: "Compte @mbokocode : chiffres (avec leur date de relevé) et vidéos. cover = adresse d'une miniature (facultatif)." },
-];
-
-// Chaque section du contenu s'édite en JSON : l'API vérifie sa forme avant d'enregistrer.
-function ContentSectionEditor({ content, section }: { content: AdminContent; section: (typeof SECTIONS)[number] }) {
-  // Section absente de la base (ancienne API) : `null` à remplir plutôt qu'une page cassée.
-  const initial = JSON.stringify(content[section.key] ?? null, null, 2);
-  const [text, setText] = useState(initial);
-  const [baseline, setBaseline] = useState(initial);
-  const [parseError, setParseError] = useState<string | null>(null);
-  const { save, saving, errors } = useSave<AdminContent>();
-
-  const submit = async () => {
-    let value: unknown;
-    try {
-      value = JSON.parse(text);
-    } catch {
-      setParseError("JSON invalide : vérifie les guillemets, virgules et crochets.");
-      return;
-    }
-    setParseError(null);
-    const saved = await save("/admin/content", { [section.key]: value }, ["content"]);
-    if (saved) setBaseline(text);
-  };
-
-  return (
-    <div className="space-y-4">
-      <TextArea mono label={section.label} hint={section.hint} rows={Math.min(22, text.split("\n").length + 1)} value={text} onChange={setText} error={parseError ?? errors[section.key]} />
-      <SaveBar saving={saving} dirty={text !== baseline} onSave={submit} />
-    </div>
   );
 }
 
